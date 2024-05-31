@@ -1,4 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
+import Footer from "../component/Home/Footer";
 import Navbar from "../component/Home/Navbar";
 
 export default function MainLayout() {
@@ -8,8 +9,10 @@ export default function MainLayout() {
   return (
     <div>
       {noHeaderFooter || <Navbar />}
-      <Outlet />
-      {/* {noHeaderFooter || <Footer />} */}
+      <div className="min-h-screen">
+        <Outlet />
+      </div>
+      {noHeaderFooter || <Footer />}
     </div>
   );
 }

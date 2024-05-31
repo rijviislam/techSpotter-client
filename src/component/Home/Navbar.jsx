@@ -43,7 +43,9 @@ export default function Navbar() {
             {navbar}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">TechSpotter</a>
+        <Link to="/" className="btn btn-ghost text-xl">
+          TechSpotter
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navbar}</ul>
@@ -72,24 +74,20 @@ export default function Navbar() {
               {isOpen && (
                 <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[10vw] bg-white overflow-hidden right-0 top-12 text-sm">
                   <div className="flex flex-col cursor-pointer">
-                    <Link
-                      to="/"
-                      className="block md:hidden px-4 py-3 hover:bg-neutral-100 transition font-semibold"
-                    >
-                      Home
-                    </Link>
-
                     {user ? (
                       <>
+                        <p className="text-sm px-8 py-1 text-green-500 font-medium select-none">
+                          {user.displayName}
+                        </p>
                         <Link
-                          to="/dashboard"
+                          to="/user-dashboard"
                           className="block  px-4 py-3 hover:bg-neutral-100 transition font-semibold"
                         >
                           Dashboard
                         </Link>
                         <div
                           onClick={logOutUser}
-                          className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
+                          className="px-4 py-3 hover:bg-neutral-100 transition font-bold cursor-pointer text-red-500 "
                         >
                           Logout
                         </div>
