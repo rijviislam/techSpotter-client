@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
@@ -33,10 +34,27 @@ export default function AuthProvider({ children }) {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  //   SAVE USER ON DB //
+  const saveUser = async (user) => {
+    const currentUser = {
+      email: user?.email,
+      role: "user",
+      status: "none-verified",
+    };
+    const { data } = await axios.post(
+      `${import.meta.env.VITE_API_URL}/user`,
+      currentUser
+    );
+    return data;
+  };
+
   // OBSERVER USER IS HE/SHE LOGIN OR NOT //
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (observ) => {
       setUser(observ);
+      if (observ) {
+        saveUser(observ);
+      }
       setLoader(false);
     });
     return () => {
