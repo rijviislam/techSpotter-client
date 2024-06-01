@@ -2,8 +2,7 @@ import useAuth from "../../hooks/useAuth";
 
 export default function MyProfile() {
   const { user } = useAuth();
-  // const [userInfo] = useUser();
-  // console.log(userInfo);
+
   return (
     <div>
       <div className="w-20 h-20">

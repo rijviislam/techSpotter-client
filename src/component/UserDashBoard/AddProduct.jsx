@@ -23,7 +23,7 @@ export default function AddProduct() {
       const productItem = {
         productName: data.productName,
         timestamp: data.timestamp,
-        ownerEmail: data.ownerEmail,
+        email: data.ownerEmail,
         links: data.links,
         description: data.description,
         recipe: data.recipe,
