@@ -41,7 +41,7 @@ export default function AuthProvider({ children }) {
       role: "user",
       status: "none-verified",
     };
-    const { data } = await axios.post(
+    const { data } = await axios.put(
       `${import.meta.env.VITE_API_URL}/user`,
       currentUser
     );
@@ -54,8 +54,22 @@ export default function AuthProvider({ children }) {
       setUser(observ);
       if (observ) {
         saveUser(observ);
+        const userInformation = { email: observ.email };
+        // get token and store client //
+        axios
+          .post(`${import.meta.env.VITE_API_URL}/jwt`, userInformation)
+          .then((res) => {
+            if (res.data.token) {
+              localStorage.setItem("Token", res.data.token);
+
+              setLoader(false);
+            }
+          });
+      } else {
+        //TODO : remove token (if token stored in the client side, Localstroage, caching , in memory )
+        localStorage.removeItem("Token");
+        setLoader(false);
       }
-      setLoader(false);
     });
     return () => {
       unSubscribe();

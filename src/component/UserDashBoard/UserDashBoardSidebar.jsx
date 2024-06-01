@@ -1,11 +1,11 @@
 import { CgAdd, CgProfile } from "react-icons/cg";
 import { GrLogout } from "react-icons/gr";
 import { MdYard } from "react-icons/md";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 export default function UserDashBoardSidebar() {
-  const { user } = useAuth();
+  const { user, logOutUser } = useAuth();
   return (
     <div className="mr-10">
       <div
@@ -13,9 +13,12 @@ export default function UserDashBoardSidebar() {
       >
         <div>
           <div>
-            <div className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-rose-100 mx-auto">
+            <div className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center mx-auto">
               {user ? (
-                <div className="hidden md:block w-full h-full lg:flex justify-between items-center">
+                <Link
+                  to="/"
+                  className="hidden md:block w-full h-full lg:flex justify-between items-center"
+                >
                   <img
                     className="border-2 border-green-600 rounded-full w-[50px] h-[50px]"
                     referrerPolicy="no-referrer"
@@ -25,7 +28,7 @@ export default function UserDashBoardSidebar() {
                     width="30"
                   />
                   <p>{user.displayName}</p>
-                </div>
+                </Link>
               ) : (
                 ""
               )}
@@ -68,7 +71,7 @@ export default function UserDashBoardSidebar() {
           <hr />
 
           <button
-            // onClick={logOut}
+            onClick={logOutUser}
             className="flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
           >
             <GrLogout className="w-5 h-5" />
