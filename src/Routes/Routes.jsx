@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import FeaturedProducts from "../component/Home/FeaturedProducts/FeaturedProducts";
 import Home from "../component/Home/Home";
 import TrendingProducts from "../component/Home/TrendingProducts/TrendingProducts";
+import Product from "../component/Product/Product";
 import AddProduct from "../component/UserDashBoard/AddProduct";
 import MyProducts from "../component/UserDashBoard/MyProducts";
 import MyProfile from "../component/UserDashBoard/MyProfile";
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
       {
         path: "/trending-produsts",
         element: <TrendingProducts />,
+      },
+      {
+        path: "/produsts",
+        element: <Product />,
       },
       {
         path: "/login",

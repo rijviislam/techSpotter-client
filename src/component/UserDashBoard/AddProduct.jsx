@@ -19,6 +19,7 @@ export default function AddProduct() {
       },
     });
     const postedTime = new Date();
+    const status = "pending";
     let voteCount = 0;
     console.log(result.data);
     if (result.data.success) {
@@ -26,6 +27,7 @@ export default function AddProduct() {
         productName: data.productName,
         postedTime,
         voteCount,
+        status,
         email: data.ownerEmail,
         links: data.links,
         description: data.description,

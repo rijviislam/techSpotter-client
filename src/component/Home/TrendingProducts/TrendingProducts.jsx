@@ -31,14 +31,6 @@ export default function TrendingProducts() {
       refetch();
     },
   });
-  const handleProductVote = async (id, currentVoteCount) => {
-    const voteCount = parseInt(currentVoteCount, 10) + 1;
-    try {
-      await mutateAsync({ id, voteCount });
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
     const sortVote = trendingProducts.sort((a, b) => b.voteCount - a.voteCount);
@@ -49,6 +41,16 @@ export default function TrendingProducts() {
     return (
       <span className="loading loading-infinity loading-xl text-5xl"></span>
     );
+
+  const handleProductVote = async (id, currentVoteCount) => {
+    const voteCount = parseInt(currentVoteCount, 10) + 1;
+    try {
+      await mutateAsync({ id, voteCount });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <h2 className="text-3xl">TrendingProducts</h2>

@@ -26,7 +26,9 @@ export default function MyProfile() {
       <h4 className="text-2xl">{user?.email}</h4>
       <div className="join">
         <input className="input input-bordered join-item" placeholder="Email" />
-        <button className="btn join-item rounded-r-full">Subscribe</button>
+        <button className="btn join-item rounded-r-full">
+          $ 5 to subscribe
+        </button>
       </div>
     </div>
   );

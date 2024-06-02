@@ -12,7 +12,7 @@ export default function Navbar() {
       </li>
 
       <li>
-        <Link>Product</Link>
+        <Link to="/produsts">Product</Link>
       </li>
     </>
   );
@@ -59,16 +59,6 @@ export default function Navbar() {
                   onClick={() => setIsOpen(!isOpen)}
                   className=" w-[50px] h-[50px] cursor-pointer"
                 >
-                  {/* <div className="hidden md:block w-full h-full">
-                    <img
-                      className="border-4 border-green-600 rounded-full w-full h-full"
-                      referrerPolicy="no-referrer"
-                      src={user && user.photoURL ? user.photoURL : "?"}
-                      alt="profile"
-                      height="30"
-                      width="30"
-                    />
-                  </div> */}
                   <div className="avatar">
                     <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                       <img src={user && user.photoURL ? user.photoURL : "?"} />
