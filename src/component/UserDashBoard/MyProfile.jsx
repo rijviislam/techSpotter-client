@@ -1,8 +1,22 @@
+import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
+import useAxiosUser from "../../hooks/useAxiosUser";
 
 export default function MyProfile() {
   const { user } = useAuth();
-
+  const axiosUser = useAxiosUser();
+  const {
+    data: userInfo = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["userInfo"],
+    queryFn: async () => {
+      const res = await axiosUser.get(`/users/user/${user.email}`);
+      console.log(res.data);
+      return res.data;
+    },
+  });
   return (
     <div>
       <div className="w-20 h-20">

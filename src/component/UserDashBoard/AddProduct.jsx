@@ -18,11 +18,12 @@ export default function AddProduct() {
         "content-type": "multipart/form-data",
       },
     });
+    const postedTime = new Date();
     console.log(result.data);
     if (result.data.success) {
       const productItem = {
         productName: data.productName,
-        timestamp: data.timestamp,
+        postedTime,
         email: data.ownerEmail,
         links: data.links,
         description: data.description,
@@ -47,12 +48,12 @@ export default function AddProduct() {
         onSubmit={handleSubmit(onSubmit)}
         className="flex bg-cyan-400 p-10 flex-col gap-4"
       >
-        <input
+        {/* <input
           type="text"
           className="hidden"
           defaultValue={Date.now()}
           {...register("timestamp", { required: true })}
-        />
+        /> */}
         <div className="flex w-full gap-4">
           <input
             placeholder="Product Name"
