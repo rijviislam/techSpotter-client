@@ -5,7 +5,7 @@ export default function UserDashboardLayout() {
   return (
     <div className="flex justify-around">
       <UserDashBoardSidebar />
-      <div className="w-3/4 border-2 border-red-600">
+      <div className="w-3/4">
         <Outlet />
       </div>
     </div>

@@ -1,15 +1,15 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useAxiosUser from "../../hooks/useAxiosUser";
 
 export default function AddProduct() {
   const { user } = useAuth();
   const axiosUser = useAxiosUser();
+  const navigate = useNavigate();
   // const [myTags, setMyTags] = useState("");
   // const [tagVal, setTagVal] = useState([]);
-  const image_hosting_key = import.meta.env.VITE_IMAGE_API_KEY;
-  const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
   // const addTags = (e) => {
   //   if (e.keyCode === 13 && myTags) {
@@ -19,6 +19,9 @@ export default function AddProduct() {
   // };
   // console.log(tagVal[1]);
   // console.log(myTags);
+
+  const image_hosting_key = import.meta.env.VITE_IMAGE_API_KEY;
+  const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = async (data) => {
@@ -42,7 +45,6 @@ export default function AddProduct() {
         email: data.ownerEmail,
         links: data.links,
         description: data.description,
-        recipe: data.recipe,
         ownerName: data.ownerName,
         ownerImage: user?.photoURL,
         productImage: result.data.data.display_url,
@@ -54,6 +56,7 @@ export default function AddProduct() {
         console.log("added");
         alert("Product added successfully!");
         reset();
+        navigate("/user-dashboard/my-product");
       }
     }
   };

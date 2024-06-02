@@ -38,7 +38,7 @@ export default function AuthProvider({ children }) {
   const saveUser = async (user) => {
     const currentUser = {
       email: user?.email,
-      role: "user",
+      role: "normalUser",
       status: "none-verified",
     };
     const { data } = await axios.put(

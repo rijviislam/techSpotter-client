@@ -18,6 +18,5 @@ export default function useAxiosProduct() {
       return res.data;
     },
   });
-  console.log(products);
   return [products, isLoading, refetch];
 }
