@@ -19,11 +19,13 @@ export default function AddProduct() {
       },
     });
     const postedTime = new Date();
+    let voteCount = 0;
     console.log(result.data);
     if (result.data.success) {
       const productItem = {
         productName: data.productName,
         postedTime,
+        voteCount,
         email: data.ownerEmail,
         links: data.links,
         description: data.description,

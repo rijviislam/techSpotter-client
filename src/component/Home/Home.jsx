@@ -1,9 +1,11 @@
-import Navbar from "./Navbar";
+import FeaturedProducts from "./FeaturedProducts/FeaturedProducts";
+import TrendingProducts from "./TrendingProducts/TrendingProducts";
 
 export default function Home() {
   return (
     <div>
-      <Navbar />
+      <FeaturedProducts />
+      <TrendingProducts />
     </div>
   );
 }

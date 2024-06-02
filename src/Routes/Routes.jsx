@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import FeaturedProducts from "../component/Home/FeaturedProducts/FeaturedProducts";
+import Home from "../component/Home/Home";
 import TrendingProducts from "../component/Home/TrendingProducts/TrendingProducts";
 import AddProduct from "../component/UserDashBoard/AddProduct";
 import MyProducts from "../component/UserDashBoard/MyProducts";
@@ -16,10 +17,14 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/feature-products",
         element: <FeaturedProducts />,
       },
       {
-        path: "/",
+        path: "/trending-produsts",
         element: <TrendingProducts />,
       },
       {

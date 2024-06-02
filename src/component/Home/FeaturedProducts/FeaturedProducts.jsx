@@ -9,11 +9,9 @@ export default function FeaturedProducts() {
     queryKey: ["products"],
     queryFn: async () => {
       const result = await axiosProducts.get("/feature-products");
-      console.log(result.data);
       return result.data;
     },
   });
-  console.log(products);
   useEffect(() => {
     const sortProducts = products.sort(
       (a, b) => new Date(b.postedTime) - new Date(a.postedTime)
