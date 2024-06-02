@@ -6,8 +6,19 @@ import useAxiosUser from "../../hooks/useAxiosUser";
 export default function AddProduct() {
   const { user } = useAuth();
   const axiosUser = useAxiosUser();
+  // const [myTags, setMyTags] = useState("");
+  // const [tagVal, setTagVal] = useState([]);
   const image_hosting_key = import.meta.env.VITE_IMAGE_API_KEY;
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+
+  // const addTags = (e) => {
+  //   if (e.keyCode === 13 && myTags) {
+  //     alert(myTags);
+  //     setTagVal([tagVal, myTags]);
+  //   }
+  // };
+  // console.log(tagVal[1]);
+  // console.log(myTags);
 
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = async (data) => {
@@ -21,7 +32,7 @@ export default function AddProduct() {
     const postedTime = new Date();
     const status = "pending";
     let voteCount = 0;
-    console.log(result.data);
+    // const tag = tagVal[1];
     if (result.data.success) {
       const productItem = {
         productName: data.productName,
@@ -46,18 +57,13 @@ export default function AddProduct() {
       }
     }
   };
+
   return (
     <div className="flex items-center justify-center w-full min-h-screen">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex bg-cyan-400 p-10 flex-col gap-4"
       >
-        {/* <input
-          type="text"
-          className="hidden"
-          defaultValue={Date.now()}
-          {...register("timestamp", { required: true })}
-        /> */}
         <div className="flex w-full gap-4">
           <input
             placeholder="Product Name"
@@ -99,14 +105,28 @@ export default function AddProduct() {
             defaultValue={user?.displayName}
             {...register("ownerName", { required: true })}
           />
-
-          <img
-            src={user?.photoURL}
-            className="w-14 h-14 rounded-full p-1 border-2 border-blue-700"
-            alt=""
-            {...register("ownerImage")}
-          />
+          {/* <div className="w-1/2 h-20">
+            <ul>
+              {tagVal.map((tag, idx) => (
+                <li key={idx}>{tag}</li>
+              ))}
+            </ul>
+            <input
+              type="text"
+              className="w-1/2 h-20"
+              placeholder="type and enter!"
+              onChange={(e) => setMyTags(e.target.value)}
+              onKeyDown={addTags}
+            />
+          </div> */}
         </div>
+
+        <img
+          src={user?.photoURL}
+          className="w-14 h-14 px-3 rounded-full p-1 border-2 border-blue-700"
+          alt=""
+          {...register("ownerImage")}
+        />
 
         <input
           className="bg-blue-500 p-3 cursor-pointer text-white font-semibold rounded-xl w-[100px]"

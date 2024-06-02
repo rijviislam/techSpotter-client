@@ -6,6 +6,7 @@ import Product from "../component/Product/Product";
 import AddProduct from "../component/UserDashBoard/AddProduct";
 import MyProducts from "../component/UserDashBoard/MyProducts";
 import MyProfile from "../component/UserDashBoard/MyProfile";
+import UpdateProduct from "../component/UserDashBoard/UpdateProduct";
 import MainLayout from "../layout/MainLayout";
 import UserDashboardLayout from "../layout/UserDashboardLayout";
 import Login from "../pages/Login/Login";
@@ -32,6 +33,7 @@ export const router = createBrowserRouter([
         path: "/produsts",
         element: <Product />,
       },
+
       {
         path: "/login",
         element: <Login />,
@@ -57,6 +59,12 @@ export const router = createBrowserRouter([
       {
         path: "/user-dashboard/my-product",
         element: <MyProducts />,
+      },
+      {
+        path: "/user-dashboard/update-produst/:id",
+        element: <UpdateProduct />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/product/${params.id}`),
       },
     ],
   },
