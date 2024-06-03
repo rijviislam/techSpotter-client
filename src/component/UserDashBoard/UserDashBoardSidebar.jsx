@@ -1,6 +1,6 @@
 import { CgAdd, CgProfile } from "react-icons/cg";
 import { GrLogout } from "react-icons/gr";
-import { MdYard } from "react-icons/md";
+import { MdReport, MdReviews, MdYard } from "react-icons/md";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useUser from "../../hooks/useUser";
@@ -41,7 +41,7 @@ export default function UserDashBoardSidebar() {
           </div>
         </div>
         <div className="flex flex-col justify-between flex-1 mt-6">
-     
+          {normalUser ? (
             <nav>
               <NavLink
                 to="/dashboard"
@@ -71,7 +71,33 @@ export default function UserDashBoardSidebar() {
                 <span className="mx-4 font-medium">My Product</span>
               </NavLink>
             </nav>
-         
+          ) : (
+            ""
+          )}
+          {moderator ? (
+            <nav>
+              <NavLink
+                to="/dashboard/moderator-dashboard"
+                end
+                className="flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 border border-green-600"
+              >
+                <MdReviews className="w-5 h-5" />
+
+                <span className="mx-4 font-medium">Product Review</span>
+              </NavLink>
+              <NavLink
+                to="/dashboard/moderator-dashboard/reported-contents"
+                end
+                className="flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 border border-green-600"
+              >
+                <MdReport className="w-5 h-5" />
+
+                <span className="mx-4 font-medium">Reported Contents</span>
+              </NavLink>
+            </nav>
+          ) : (
+            ""
+          )}
 
           <hr />
 

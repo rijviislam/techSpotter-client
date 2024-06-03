@@ -12,7 +12,7 @@ export default function Navbar() {
       </li>
 
       <li>
-        <Link to="/produsts">Product</Link>
+        <Link to="/products">Product</Link>
       </li>
     </>
   );

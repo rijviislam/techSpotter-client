@@ -35,6 +35,7 @@ export default function AddProduct() {
     const postedTime = new Date();
     const status = "pending";
     let voteCount = 0;
+    const reported = "false";
     // const tag = tagVal[1];
     if (result.data.success) {
       const productItem = {
@@ -42,6 +43,7 @@ export default function AddProduct() {
         postedTime,
         voteCount,
         status,
+        reported,
         email: data.ownerEmail,
         links: data.links,
         description: data.description,
