@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useAxiosUser from "../../hooks/useAxiosUser";
 
@@ -8,6 +8,7 @@ export default function UpdateProduct() {
   const { _id, productName, links, description } = useLoaderData();
   const { user } = useAuth();
   const axiosUser = useAxiosUser();
+  const navigate = useNavigate();
 
   const { register, handleSubmit } = useForm();
   const image_hosting_key = import.meta.env.VITE_IMAGE_API_KEY;
@@ -44,6 +45,7 @@ export default function UpdateProduct() {
         // /show a aleart
         console.log("Updated");
         alert("Product Updated successfully!");
+        navigate("/dashboard/my-product");
       }
     }
   };

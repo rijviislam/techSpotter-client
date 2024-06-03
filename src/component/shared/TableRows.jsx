@@ -23,7 +23,7 @@ export default function TableRows({ product, idx }) {
       <td>{voteCount}</td>
       <td>{status}</td>
       <td>
-        <Link to={`/user-dashboard/update-produst/${_id}`}>
+        <Link to={`/dashboard/update-produst/${_id}`}>
           <button className="badge-md bg-blue-500 font-semibold text-white rounded-md">
             Update
           </button>

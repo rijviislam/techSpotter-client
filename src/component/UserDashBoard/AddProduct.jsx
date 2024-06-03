@@ -56,7 +56,7 @@ export default function AddProduct() {
         console.log("added");
         alert("Product added successfully!");
         reset();
-        navigate("/user-dashboard/my-product");
+        navigate("/dashboard/my-product");
       }
     }
   };

@@ -9,6 +9,7 @@ export default function TrendingProducts() {
   const {
     data: trendingProducts = [],
     isLoading,
+    isError,
     refetch,
   } = useQuery({
     queryKey: ["trendingProducts"],
@@ -33,14 +34,21 @@ export default function TrendingProducts() {
   });
 
   useEffect(() => {
-    const sortVote = trendingProducts.sort((a, b) => b.voteCount - a.voteCount);
-    setSortedVote(sortVote);
+    if (trendingProducts.length > 0) {
+      const sortedProducts = [...trendingProducts].sort(
+        (a, b) => b.voteCount - a.voteCount
+      );
+      setSortedVote(sortedProducts);
+    }
   }, [trendingProducts]);
 
   if (isLoading)
     return (
       <span className="loading loading-infinity loading-xl text-5xl"></span>
     );
+  if (isError) {
+    return <div>Error on trending products</div>;
+  }
 
   const handleProductVote = async (id, currentVoteCount) => {
     const voteCount = parseInt(currentVoteCount, 10) + 1;

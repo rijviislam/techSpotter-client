@@ -75,11 +75,12 @@ export default function Navbar() {
                           {user.displayName}
                         </p>
                         <Link
-                          to="/user-dashboard"
+                          to="dashboard"
                           className="block  px-4 py-3 hover:bg-neutral-100 transition font-semibold"
                         >
                           Dashboard
                         </Link>
+
                         <div
                           onClick={logOutUser}
                           className="px-4 py-3 hover:bg-neutral-100 transition font-bold cursor-pointer text-red-500 "

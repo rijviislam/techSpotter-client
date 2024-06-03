@@ -5,19 +5,32 @@ import useAxiosUser from "../../../hooks/useAxiosUser";
 export default function FeaturedProducts() {
   const axiosProducts = useAxiosUser();
   const [allSortproducts, setAllSortProducts] = useState([]);
-  const { data: products = [] } = useQuery({
+  const {
+    data: products = [],
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
       const result = await axiosProducts.get("/feature-products");
+      console.log(result.data);
       return result.data;
     },
   });
   useEffect(() => {
-    const sortProducts = products.sort(
-      (a, b) => new Date(b.postedTime) - new Date(a.postedTime)
-    );
-    setAllSortProducts(sortProducts);
+    if (products.length > 0) {
+      const sortedProducts = [...products].sort(
+        (a, b) => new Date(b.postedTime) - new Date(a.postedTime)
+      );
+      setAllSortProducts(sortedProducts);
+    }
   }, [products]);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (isError) {
+    return <div>Error on products</div>;
+  }
 
   console.log(allSortproducts);
   return (

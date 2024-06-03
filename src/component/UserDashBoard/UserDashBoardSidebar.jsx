@@ -11,7 +11,6 @@ export default function UserDashBoardSidebar() {
   console.log(userInfo.role);
   const normalUser = userInfo.role === "normalUser";
   const moderator = userInfo.role === "moderator";
-  console.log(normalUser, moderator);
   return (
     <div className="mr-10">
       <div
@@ -42,10 +41,10 @@ export default function UserDashBoardSidebar() {
           </div>
         </div>
         <div className="flex flex-col justify-between flex-1 mt-6">
-          {normalUser ? (
+     
             <nav>
               <NavLink
-                to="/user-dashboard"
+                to="/dashboard"
                 end
                 className="flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 border border-green-600"
               >
@@ -54,7 +53,7 @@ export default function UserDashBoardSidebar() {
                 <span className="mx-4 font-medium">My Profile</span>
               </NavLink>
               <NavLink
-                to="/user-dashboard/add-product"
+                to="/dashboard/add-product"
                 end
                 className="flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 border border-green-600"
               >
@@ -63,7 +62,7 @@ export default function UserDashBoardSidebar() {
                 <span className="mx-4 font-medium">Add Product</span>
               </NavLink>
               <NavLink
-                to="/user-dashboard/my-product"
+                to="/dashboard/my-product"
                 end
                 className="flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 border border-green-600"
               >
@@ -72,36 +71,8 @@ export default function UserDashBoardSidebar() {
                 <span className="mx-4 font-medium">My Product</span>
               </NavLink>
             </nav>
-          ) : (
-            " "
-          )}
-          {moderator ? (
-            <nav>
-              <NavLink
-                to="/moderator-dashboard/product-review-queue"
-                end
-                className="flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 border border-green-600"
-              >
-                <CgProfile className="w-5 h-5" />
+         
 
-                <span className="mx-4 font-medium">Product Review Queue</span>
-              </NavLink>
-              <NavLink
-                to="/moderator-dashboard/reported-contents"
-                end
-                className="flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 border border-green-600"
-              >
-                <CgProfile className="w-5 h-5" />
-
-                <span className="mx-4 font-medium">Reported Contents</span>
-              </NavLink>
-            </nav>
-          ) : (
-            " "
-          )}
-        </div>
-
-        <div>
           <hr />
 
           <button
