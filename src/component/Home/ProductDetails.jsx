@@ -1,10 +1,14 @@
+import { Rating } from "@smastrom/react-rating";
+import "@smastrom/react-rating/style.css";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { TbArrowBigUpLineFilled } from "react-icons/tb";
 import { useLoaderData } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useAxiosUser from "../../hooks/useAxiosUser";
 
 export default function ProductDetails() {
+  const { user } = useAuth();
   const {
     _id,
     productName,
@@ -16,7 +20,8 @@ export default function ProductDetails() {
   } = useLoaderData();
   const axiosUser = useAxiosUser();
   const [disable, setDisable] = useState(false);
-  const { user } = useAuth();
+  const [review, setReview] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleReport = (id) => {
     console.log(id);
@@ -33,13 +38,40 @@ export default function ProductDetails() {
       }
     });
   };
+
+  const { register, handleSubmit, reset } = useForm();
+  const reviewerImage = user?.photoURL;
+  const reviewerName = user?.displayName;
+  const productId = _id;
+
+  const onSubmit = async (data) => {
+    setIsSubmitting(true);
+    const reviewItem = {
+      review,
+      description: data.description,
+      reviewerName,
+      reviewerImage,
+      productId,
+    };
+    console.log(reviewItem);
+    const postReview = await axiosUser.post("/review", reviewItem);
+
+    if (postReview.data.insertedId) {
+      console.log("Review Added");
+      alert("Review Added!");
+      reset();
+      setIsSubmitting(false);
+      setReview(0);
+    }
+  };
+
   return (
     <div className="w-full">
       <h2 className="text-3xl">Product Details {_id}</h2>
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row">
           <img src={productImage} className="min-w-sm rounded-lg shadow-2xl" />
-          <div>
+          <div className="flex flex-col">
             <h1 className="text-5xl font-bold">{productName}</h1>
             <h1 className="text-2xl font-bold">{links}</h1>
             <p className="py-6">{description}</p>
@@ -60,6 +92,37 @@ export default function ProductDetails() {
               >
                 Report
               </button>
+            </div>
+            {/* REVIEW FORM  */}
+            <div>
+              <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
+                <input
+                  className="my-2 bg-white w-[400px] h-[50px] p-2"
+                  defaultValue={user?.displayName}
+                  readOnly
+                  {...register("reviewerName", { required: true })}
+                />
+                <input
+                  className="my-2 bg-white w-[400px] h-[50px] p-2"
+                  defaultValue={user?.photoURL}
+                  readOnly
+                  {...register("reviewerImage", { required: true })}
+                />
+                <input
+                  className="my-2 bg-white w-[400px] h-[50px] p-2"
+                  type="text"
+                  {...register("description", { required: true })}
+                />
+                <Rating
+                  style={{ maxWidth: 220 }}
+                  value={review}
+                  onChange={setReview}
+                />
+                <input
+                  type="submit"
+                  className="bg-blue-500 text-gray-600 p-3 font-semibold rounded-xl cursor-pointer"
+                />
+              </form>
             </div>
           </div>
         </div>

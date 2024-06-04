@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import ManageCoupons from "../component/AdminDashBoard/ManageCoupons";
 import ManageUsers from "../component/AdminDashBoard/ManageUsers";
 import Statistics from "../component/AdminDashBoard/Statistics";
+import Error from "../component/Home/Error";
 import FeaturedProducts from "../component/Home/FeaturedProducts/FeaturedProducts";
 import Home from "../component/Home/Home";
 import ProductDetails from "../component/Home/ProductDetails";
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
