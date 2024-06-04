@@ -1,30 +1,3 @@
-// import { useQuery } from "@tanstack/react-query";
-// import useAxiosUser from "../../hooks/useAxiosUser";
-// import PieChart from "../shared/PieChart";
-
-// export default function Statistics() {
-//   const axiosAllUserGet = useAxiosUser();
-//   const {
-//     data: allUsers = [],
-//     isLoading,
-//     isError,
-//     refetch,
-//   } = useQuery({
-//     queryKey: ["allUsers"],
-//     queryFn: async () => {
-//       const result = await axiosAllUserGet.get("/all-users");
-//       console.log(result.data);
-//       return result.data;
-//     },
-//   });
-//   return (
-//     <div>
-//       <h2 className="text-3xl">Statistics</h2>
-//       {/* <PieChart /> */}
-//     </div>
-//   );
-// }
-
 import { useQuery } from "@tanstack/react-query";
 import useAxiosUser from "../../hooks/useAxiosUser";
 import PieChart from "../shared/PieChart";
@@ -68,7 +41,9 @@ export default function Statistics() {
     <div>
       <h2 className="text-3xl">Statistics</h2>
 
-      {!isLoading && !isError && <PieChart data={chartData} />}
+      {!isLoading && !isError && (
+        <PieChart data={chartData} width={800} height={800} />
+      )}
     </div>
   );
 }

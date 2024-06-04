@@ -11,6 +11,7 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../Firebase/Firebase.config";
+import useAxiosUser from "../hooks/useAxiosUser";
 
 export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
@@ -20,7 +21,7 @@ export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loader, setLoader] = useState(true);
   const [reload, setReload] = useState(false);
-
+  const axiosUser = useAxiosUser();
   // CREATE USER //
 
   const createUser = (email, password) => {
@@ -44,21 +45,24 @@ export default function AuthProvider({ children }) {
       role: "normalUser",
       status: "none-verified",
     };
-    const { data } = await axios.put(
-      `${import.meta.env.VITE_API_URL}/user`,
-      currentUser
-    );
+    const idToken = await user.getIdToken();
+    // const { data } = await axiosUser.put(`/user`, currentUser);
+    const { data } = await axiosUser.put(`/user`, currentUser, {
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+      },
+    });
     return data;
   };
   // UPDATE PROFILE
 
   // OBSERVER USER IS HE/SHE LOGIN OR NOT //
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (observ) => {
+    const unSubscribe = onAuthStateChanged(auth, async (observ) => {
       setUser(observ);
       if (observ) {
         console.log(observ);
-        saveUser(observ);
+        await saveUser(observ);
         const userInformation = { email: observ.email };
         // get token and store client //
         axios
@@ -71,7 +75,6 @@ export default function AuthProvider({ children }) {
             }
           });
       } else {
-        //TODO : remove token (if token stored in the client side, Localstroage, caching , in memory )
         localStorage.removeItem("Token");
         setLoader(false);
       }
