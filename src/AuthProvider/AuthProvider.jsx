@@ -36,7 +36,10 @@ export default function AuthProvider({ children }) {
 
   //   SAVE USER ON DB //
   const saveUser = async (user) => {
+    console.log(user.displayName);
+    const name = user?.displayName ? user.displayName : "";
     const currentUser = {
+      name,
       email: user?.email,
       role: "normalUser",
       status: "none-verified",
@@ -47,12 +50,14 @@ export default function AuthProvider({ children }) {
     );
     return data;
   };
+  // UPDATE PROFILE
 
   // OBSERVER USER IS HE/SHE LOGIN OR NOT //
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (observ) => {
       setUser(observ);
       if (observ) {
+        console.log(observ);
         saveUser(observ);
         const userInformation = { email: observ.email };
         // get token and store client //

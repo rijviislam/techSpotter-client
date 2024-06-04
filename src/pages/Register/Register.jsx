@@ -18,15 +18,12 @@ export default function Register() {
 
     createUser(email, password)
       .then((res) => {
-        // console.log(res.user);
-        const user = res.user;
-        console.log("user", user);
         updateImageAndName(name, image).then(() => {
           setReload(true);
         });
-
         reset();
       })
+
       .catch((error) => {
         setRegError(error.message);
         if (regError) {

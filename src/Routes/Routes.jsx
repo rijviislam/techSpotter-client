@@ -1,4 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
+import ManageCoupons from "../component/AdminDashBoard/ManageCoupons";
+import ManageUsers from "../component/AdminDashBoard/ManageUsers";
+import Statistics from "../component/AdminDashBoard/Statistics";
 import FeaturedProducts from "../component/Home/FeaturedProducts/FeaturedProducts";
 import Home from "../component/Home/Home";
 import ProductDetails from "../component/Home/ProductDetails";
@@ -88,6 +91,24 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/moderator-dashboard/reported-contents",
         element: <ReportedContents />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard/admin-dashboard",
+    element: <ModeratorDashboardLayout />,
+    children: [
+      {
+        path: "/dashboard/admin-dashboard",
+        element: <Statistics />,
+      },
+      {
+        path: "/dashboard/admin-dashboard/manage-users",
+        element: <ManageUsers />,
+      },
+      {
+        path: "/dashboard/admin-dashboard/manage-coupons",
+        element: <ManageCoupons />,
       },
     ],
   },

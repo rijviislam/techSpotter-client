@@ -11,6 +11,7 @@ export default function UserDashBoardSidebar() {
   console.log(userInfo.role);
   const normalUser = userInfo.role === "normalUser";
   const moderator = userInfo.role === "moderator";
+  const admin = userInfo.role === "admin";
   return (
     <div className="mr-10">
       <div
@@ -44,7 +45,7 @@ export default function UserDashBoardSidebar() {
           {normalUser ? (
             <nav>
               <NavLink
-                to="/dashboard"
+                to="/dashboard/my-profile"
                 end
                 className="flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 border border-green-600"
               >
@@ -93,6 +94,39 @@ export default function UserDashBoardSidebar() {
                 <MdReport className="w-5 h-5" />
 
                 <span className="mx-4 font-medium">Reported Contents</span>
+              </NavLink>
+            </nav>
+          ) : (
+            ""
+          )}
+          {admin ? (
+            <nav>
+              <NavLink
+                to="/dashboard/admin-dashboard"
+                end
+                className="flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 border border-green-600"
+              >
+                <MdReviews className="w-5 h-5" />
+
+                <span className="mx-4 font-medium">Statistics Page</span>
+              </NavLink>
+              <NavLink
+                to="/dashboard/admin-dashboard/manage-users"
+                end
+                className="flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 border border-green-600"
+              >
+                <MdReport className="w-5 h-5" />
+
+                <span className="mx-4 font-medium">Manage Users</span>
+              </NavLink>
+              <NavLink
+                to="/dashboard/admin-dashboard/manage-coupons"
+                end
+                className="flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 border border-green-600"
+              >
+                <MdReport className="w-5 h-5" />
+
+                <span className="mx-4 font-medium">Manage Coupons</span>
               </NavLink>
             </nav>
           ) : (
