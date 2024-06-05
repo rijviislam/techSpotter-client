@@ -1,11 +1,12 @@
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAxiosUser from "../../hooks/useAxiosUser";
 
 export default function AddProduct() {
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const axiosUser = useAxiosUser();
   const navigate = useNavigate();
   // const [myTags, setMyTags] = useState("");
@@ -27,7 +28,7 @@ export default function AddProduct() {
   const onSubmit = async (data) => {
     console.log(data);
     const imageFile = { image: data.image[0] };
-    const result = await axios.post(image_hosting_api, imageFile, {
+    const result = await axiosUser.post(image_hosting_api, imageFile, {
       headers: {
         "content-type": "multipart/form-data",
       },
@@ -51,7 +52,7 @@ export default function AddProduct() {
         ownerImage: user?.photoURL,
         productImage: result.data.data.display_url,
       };
-      const productResult = await axiosUser.post("/product", productItem);
+      const productResult = await axiosSecure.post("/product", productItem);
       console.log(productResult.data);
       if (productResult.data.insertedId) {
         // /show a aleart

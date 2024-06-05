@@ -61,10 +61,12 @@ export default function TrendingProducts() {
   };
 
   return (
-    <div>
-      <h2 className="text-3xl">TrendingProducts</h2>
+    <div className="m-8">
+      <h2 className="text-3xl text-teal-600 font-bold mb-4">
+        TrendingProducts
+      </h2>
       <div className="grid grid-cols-3 gap-5">
-        {sortedVote.map((product) => (
+        {sortedVote.slice(0, 6).map((product) => (
           <Link key={product._id} to={`/product-details/${product._id}`}>
             <div className="card card-compact w-96 bg-base-100 shadow-xl">
               <figure>
