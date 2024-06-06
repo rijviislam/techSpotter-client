@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import Vote from "../../../assets/up-arrow.png";
-import useAxiosUser from "../../../hooks/useAxiosUser";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 export default function FeaturedProducts() {
-  const axiosProducts = useAxiosUser();
+  const axiosSecure = useAxiosSecure();
   const [allSortproducts, setAllSortProducts] = useState([]);
   const {
     data: products = [],
@@ -13,7 +13,7 @@ export default function FeaturedProducts() {
   } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-      const result = await axiosProducts.get("/feature-products");
+      const result = await axiosSecure.get("/feature-products");
       console.log(result.data);
       return result.data;
     },
@@ -50,7 +50,10 @@ export default function FeaturedProducts() {
             </figure>
             <div className="card-body">
               <h2 className="card-title">{product.productName}</h2>
-              <p>Tags</p>
+              {product?.tags?.map((tag, idx) => (
+                <p key={idx}>{tag}</p>
+              ))}
+
               <button className="rounded-lg w-16 flex items-center justify-between p-1 px-2 bg-teal-900">
                 {" "}
                 <img className="w-5 h-5" src={Vote} alt="" />{" "}

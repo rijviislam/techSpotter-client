@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosUser from "../../hooks/useAxiosUser";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 export default function ManageUsers() {
-  const axiosAllUserGet = useAxiosUser();
+  const axiosSecure = useAxiosSecure();
   const {
     data: allUsers = [],
     isLoading,
@@ -11,7 +11,7 @@ export default function ManageUsers() {
   } = useQuery({
     queryKey: ["allUsers"],
     queryFn: async () => {
-      const result = await axiosAllUserGet.get("/all-users");
+      const result = await axiosSecure.get("/all-users");
       console.log(result.data);
       return result.data;
     },
@@ -20,7 +20,7 @@ export default function ManageUsers() {
   if (isError) return <p>Error....</p>;
   const handleModerator = (id) => {
     console.log(id);
-    axiosAllUserGet.patch(`/make-moderator/${id}`).then((res) => {
+    axiosSecure.patch(`/make-moderator/${id}`).then((res) => {
       console.log(res.data);
       if (res.data.modifiedCount > 0) {
         // /show a aleart
@@ -33,7 +33,7 @@ export default function ManageUsers() {
   };
   const handleAdmin = (id) => {
     console.log(id);
-    axiosAllUserGet.patch(`/make-admin/${id}`).then((res) => {
+    axiosSecure.patch(`/make-admin/${id}`).then((res) => {
       console.log(res.data);
       if (res.data.modifiedCount > 0) {
         // /show a aleart

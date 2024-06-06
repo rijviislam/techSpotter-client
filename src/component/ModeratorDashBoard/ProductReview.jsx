@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import useAxiosUser from "../../hooks/useAxiosUser";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 export default function ProductReview() {
-  const axiosAllProduct = useAxiosUser();
-  // const [btnDisable, setBtnDisable] = useState(false);
+  const axiosSecure = useAxiosSecure();
   const {
     data: allProduct = [],
     isError,
@@ -13,32 +12,30 @@ export default function ProductReview() {
   } = useQuery({
     queryKey: ["allProduct"],
     queryFn: async () => {
-      const result = await axiosAllProduct.get("/product-review-queue");
+      const result = await axiosSecure.get("/product-review-queue");
       return result.data;
     },
   });
   console.log(allProduct);
 
   const handleAccept = (id) => {
-    axiosAllProduct.patch(`/product-review-queue-accept/${id}`).then((res) => {
+    axiosSecure.patch(`/product-review-queue-accept/${id}`).then((res) => {
       console.log(res.data);
       if (res.data.modifiedCount > 0) {
         // /show a aleart
         console.log("Accepted");
         alert("Product Accept successfully!");
-        // setBtnDisable(true);
         refetch();
       }
     });
   };
   const handleReject = (id) => {
-    axiosAllProduct.patch(`/product-review-queue-reject/${id}`).then((res) => {
+    axiosSecure.patch(`/product-review-queue-reject/${id}`).then((res) => {
       console.log(res.data);
       if (res.data.modifiedCount > 0) {
         // /show a aleart
         console.log("Rejected");
         alert("Product Reject successfully!");
-        // setBtnDisable(true);
         refetch();
       }
     });

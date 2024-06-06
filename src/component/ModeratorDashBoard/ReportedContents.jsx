@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import useAxiosUser from "../../hooks/useAxiosUser";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 export default function ReportedContents() {
-  const axiosProducts = useAxiosUser();
+  const axiosSecure = useAxiosSecure();
 
   const {
     data: reported,
@@ -14,7 +14,7 @@ export default function ReportedContents() {
     queryKey: ["reported"],
     staleTime: 0,
     queryFn: async () => {
-      const result = await axiosProducts.get("/reported-products", {
+      const result = await axiosSecure.get("/reported-products", {
         params: { reported: true },
       });
       return result.data;
@@ -27,7 +27,7 @@ export default function ReportedContents() {
   console.log(reported);
 
   const handleDeleteProduct = async (id) => {
-    const result = await axiosProducts.delete(`/product/${id}`);
+    const result = await axiosSecure.delete(`/product/${id}`);
     console.log(result);
     if (result.data.deletedCount) {
       alert("Delete successfully!");

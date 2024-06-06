@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosUser from "../../hooks/useAxiosUser";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import PieChart from "../shared/PieChart";
 
 export default function Statistics() {
-  const axiosAllUserGet = useAxiosUser();
+  const axiosSecure = useAxiosSecure();
   const {
     data: allUsers = [],
     isLoading,
@@ -11,21 +11,21 @@ export default function Statistics() {
   } = useQuery({
     queryKey: ["allUsers"],
     queryFn: async () => {
-      const result = await axiosAllUserGet.get("/all-users");
+      const result = await axiosSecure.get("/all-users");
       return result.data;
     },
   });
   const { data: allProduct = [] } = useQuery({
     queryKey: ["allProduct"],
     queryFn: async () => {
-      const result = await axiosAllUserGet.get("/all-product");
+      const result = await axiosSecure.get("/all-product");
       return result.data;
     },
   });
   const { data: allReview = [] } = useQuery({
     queryKey: ["allReview"],
     queryFn: async () => {
-      const result = await axiosAllUserGet.get("/all-review");
+      const result = await axiosSecure.get("/all-review");
       return result.data;
     },
   });

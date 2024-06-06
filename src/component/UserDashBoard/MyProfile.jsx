@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
+import Verified from "../../assets/mark.png";
 import useAuth from "../../hooks/useAuth";
-import useAxiosUser from "../../hooks/useAxiosUser";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 export default function MyProfile() {
   const { user } = useAuth();
-  const axiosUser = useAxiosUser();
+  const axiosSecure = useAxiosSecure();
   const {
     data: userInfo = [],
     isLoading,
@@ -12,24 +14,42 @@ export default function MyProfile() {
   } = useQuery({
     queryKey: ["userInfo"],
     queryFn: async () => {
-      const res = await axiosUser.get(`/users/user/${user.email}`);
+      const res = await axiosSecure.get(`/users/user/${user.email}`);
       console.log(res.data);
       return res.data;
     },
   });
+  const handleSubscribe = () => {
+    // reset();
+    console.log("Okkk");
+  };
+  console.log(userInfo);
   return (
     <div>
-      <div className="w-20 h-20">
+      <div className="w-20 h-20 flex">
         <img src={user?.photoURL} alt="" />
+        {userInfo.status === "verified" && (
+          <img className="w-8 h-8" src={Verified} alt="verified" />
+        )}
       </div>
       <h2 className="text-3xl">{user?.displayName}</h2>
       <h4 className="text-2xl">{user?.email}</h4>
-      <div className="join">
-        <input className="input input-bordered join-item" placeholder="Email" />
-        <button className="btn join-item rounded-r-full">
-          $ 5 to subscribe
-        </button>
-      </div>
+      {userInfo.status !== "verified" && (
+        <div className="join">
+          <input
+            className="input input-bordered join-item"
+            placeholder="Email"
+          />
+          <Link to="/dashboard/payment">
+            <button
+              onClick={handleSubscribe}
+              className="btn join-item rounded-r-full"
+            >
+              $ 15 to subscribe
+            </button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

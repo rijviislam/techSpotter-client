@@ -9,6 +9,7 @@ import ProductDetails from "../component/Home/ProductDetails";
 import TrendingProducts from "../component/Home/TrendingProducts/TrendingProducts";
 import ProductReview from "../component/ModeratorDashBoard/ProductReview";
 import ReportedContents from "../component/ModeratorDashBoard/ReportedContents";
+import Payment from "../component/Payment/Payment";
 import Product from "../component/Product/Product";
 import AddProduct from "../component/UserDashBoard/AddProduct";
 import MyProducts from "../component/UserDashBoard/MyProducts";
@@ -79,6 +80,10 @@ export const router = createBrowserRouter([
         element: <UpdateProduct />,
         loader: ({ params }) =>
           fetch(`http://localhost:5000/product/${params.id}`),
+      },
+      {
+        path: "/dashboard/payment",
+        element: <Payment />,
       },
     ],
   },

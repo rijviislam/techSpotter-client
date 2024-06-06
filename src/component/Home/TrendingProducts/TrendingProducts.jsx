@@ -3,10 +3,12 @@ import { useEffect, useState } from "react";
 import { TbArrowBigUpLineFilled } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAxiosUser from "../../../hooks/useAxiosUser";
 
 export default function TrendingProducts() {
   const axiosProducts = useAxiosUser();
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [checked, setChecked] = useState([]);
   const [sortedVote, setSortedVote] = useState([]);
@@ -19,7 +21,7 @@ export default function TrendingProducts() {
   } = useQuery({
     queryKey: ["trendingProducts"],
     queryFn: async () => {
-      const result = await axiosProducts.get("/trending-products");
+      const result = await axiosSecure.get("/trending-products");
       console.log(result.data);
       return result.data;
     },
@@ -28,10 +30,9 @@ export default function TrendingProducts() {
   const { mutateAsync } = useMutation({
     mutationFn: async ({ id, voteCount }) => {
       if (user) {
-        const result = await axiosProducts.patch(`/trending-products/${id}`, {
+        const result = await axiosSecure.patch(`/trending-products/${id}`, {
           voteCount,
         });
-        setChecked([user?.email, id]);
         console.log(result.data);
         return result.data;
       }
