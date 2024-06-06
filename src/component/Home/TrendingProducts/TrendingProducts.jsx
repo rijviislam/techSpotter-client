@@ -1,12 +1,16 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { TbArrowBigUpLineFilled } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 import useAxiosUser from "../../../hooks/useAxiosUser";
 
 export default function TrendingProducts() {
   const axiosProducts = useAxiosUser();
+  const { user } = useAuth();
+  const [checked, setChecked] = useState([]);
   const [sortedVote, setSortedVote] = useState([]);
+  const navigate = useNavigate();
   const {
     data: trendingProducts = [],
     isLoading,
@@ -23,17 +27,21 @@ export default function TrendingProducts() {
 
   const { mutateAsync } = useMutation({
     mutationFn: async ({ id, voteCount }) => {
-      const result = await axiosProducts.patch(`/trending-products/${id}`, {
-        voteCount,
-      });
-      console.log(result.data);
-      return result.data;
+      if (user) {
+        const result = await axiosProducts.patch(`/trending-products/${id}`, {
+          voteCount,
+        });
+        setChecked([user?.email, id]);
+        console.log(result.data);
+        return result.data;
+      }
+      return navigate("/login");
     },
     onSuccess: () => {
       refetch();
     },
   });
-
+  console.log(checked);
   useEffect(() => {
     if (trendingProducts.length > 0) {
       const sortedProducts = [...trendingProducts].sort(
@@ -67,34 +75,47 @@ export default function TrendingProducts() {
       </h2>
       <div className="grid grid-cols-3 gap-5">
         {sortedVote.slice(0, 6).map((product) => (
-          <Link key={product._id} to={`/product-details/${product._id}`}>
-            <div className="card card-compact w-96 bg-base-100 shadow-xl">
-              <figure>
-                <img
-                  className="w-20 h-20"
-                  src={product.productImage}
-                  alt="Shoes"
-                />
-              </figure>
-              <div className="card-body">
+          <div
+            key={product._id}
+            className="card card-compact w-96 bg-base-100 shadow-xl"
+          >
+            <figure>
+              <img
+                className="w-20 h-20"
+                src={product.productImage}
+                alt="Shoes"
+              />
+            </figure>
+            <div className="card-body ">
+              <Link
+                to={`/product-details/${product._id}`}
+                className="underline"
+              >
                 <h2 className="card-title">{product.productName}</h2>
-                <p>If a dog chews shoes whose shoes does he choose?</p>
-                <div className="card-actions justify-end">
-                  <button
-                    onClick={() =>
-                      handleProductVote(product._id, product.voteCount)
-                    }
-                    className="btn btn-primary"
-                  >
-                    {parseInt(product.voteCount)}
-                    <TbArrowBigUpLineFilled />
-                  </button>
-                </div>
+              </Link>
+              <p>If a dog chews shoes whose shoes does he choose?</p>
+              <div className="card-actions justify-end">
+                <button
+                  onClick={() =>
+                    handleProductVote(product._id, product.voteCount)
+                  }
+                  disabled={product?.email === user?.email}
+                  // disabled={user?.email === product.email}
+                  className="btn btn-primary"
+                >
+                  {parseInt(product.voteCount)}
+                  <TbArrowBigUpLineFilled />
+                </button>
               </div>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
+      <Link to="/products" className="mt-5 flex items-center justify-center">
+        <button className="btn btn-outline btn-accent">
+          Show All Products
+        </button>
+      </Link>
     </div>
   );
 }

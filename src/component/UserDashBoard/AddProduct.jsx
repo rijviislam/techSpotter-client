@@ -1,5 +1,8 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { TagsInput } from "react-tag-input-component";
+import "../../../style.css";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAxiosUser from "../../hooks/useAxiosUser";
@@ -9,24 +12,13 @@ export default function AddProduct() {
   const axiosSecure = useAxiosSecure();
   const axiosUser = useAxiosUser();
   const navigate = useNavigate();
-  // const [myTags, setMyTags] = useState("");
-  // const [tagVal, setTagVal] = useState([]);
-
-  // const addTags = (e) => {
-  //   if (e.keyCode === 13 && myTags) {
-  //     alert(myTags);
-  //     setTagVal([tagVal, myTags]);
-  //   }
-  // };
-  // console.log(tagVal[1]);
-  // console.log(myTags);
+  const [selected, setSelected] = useState(["AI"]);
 
   const image_hosting_key = import.meta.env.VITE_IMAGE_API_KEY;
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = async (data) => {
-    console.log(data);
     const imageFile = { image: data.image[0] };
     const result = await axiosUser.post(image_hosting_api, imageFile, {
       headers: {
@@ -37,7 +29,8 @@ export default function AddProduct() {
     const status = "pending";
     let voteCount = 0;
     const reported = "false";
-    // const tag = tagVal[1];
+    const tags = selected;
+
     if (result.data.success) {
       const productItem = {
         productName: data.productName,
@@ -45,6 +38,7 @@ export default function AddProduct() {
         voteCount,
         status,
         reported,
+        tags,
         email: data.ownerEmail,
         links: data.links,
         description: data.description,
@@ -85,7 +79,6 @@ export default function AddProduct() {
 
         <div className="flex w-full gap-4">
           <input
-            // placeholder="Owner Email"
             readOnly
             defaultValue={user?.email}
             className="bg-gray-100 w-1/2 h-12 px-5"
@@ -111,20 +104,13 @@ export default function AddProduct() {
             defaultValue={user?.displayName}
             {...register("ownerName", { required: true })}
           />
-          {/* <div className="w-1/2 h-20">
-            <ul>
-              {tagVal.map((tag, idx) => (
-                <li key={idx}>{tag}</li>
-              ))}
-            </ul>
-            <input
-              type="text"
-              className="w-1/2 h-20"
-              placeholder="type and enter!"
-              onChange={(e) => setMyTags(e.target.value)}
-              onKeyDown={addTags}
-            />
-          </div> */}
+
+          <TagsInput
+            value={selected}
+            onChange={setSelected}
+            name="AI"
+            placeHolder="enter tags"
+          />
         </div>
 
         <img

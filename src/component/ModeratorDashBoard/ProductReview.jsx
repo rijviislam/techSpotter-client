@@ -84,7 +84,7 @@ export default function ProductReview() {
                   <td>
                     <button
                       onClick={() => handleAccept(product._id)}
-                      // disabled={btnDisable}
+                      disabled={product.status === "accepted"}
                       className="btn btn-sm bg-lime-300 text-gray-600"
                     >
                       Accept
@@ -93,8 +93,8 @@ export default function ProductReview() {
                   <td>
                     <button
                       onClick={() => handleReject(product._id)}
-                      // disabled={btnDisable}
-                      className="badge-md bg-blue-500 font-semibold text-white rounded-md"
+                      disabled={product.status === "reject"}
+                      className="btn btn-sm bg-blue-500 font-semibold text-white rounded-md"
                     >
                       Reject
                     </button>

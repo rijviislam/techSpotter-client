@@ -63,7 +63,7 @@ export default function ManageUsers() {
             {allUsers.map((user, idx) => (
               <tr key={user._id}>
                 <th>{idx + 1}</th>
-                <td>{user.name}</td>
+                <td>{user?.name}</td>
                 <td>{user.email}</td>
                 <td>
                   <button

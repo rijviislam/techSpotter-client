@@ -1,0 +1,17 @@
+.rti--container {
+  max-width: 300px;
+  min-height: 100px;
+  display: flex;
+  border: 3px solid #ff0000;
+}
+.react-tagsinput-input {
+  border: 3px solid #ff0000;
+  padding: 5px;
+  border-radius: 4px;
+  outline: none;
+  font-size: 14px;
+  width: 200px;
+}
+.react-tagsinput-input:focus {
+  border-color: #007bff;
+}

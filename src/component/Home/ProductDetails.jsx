@@ -6,6 +6,7 @@ import { TbArrowBigUpLineFilled } from "react-icons/tb";
 import { useLoaderData } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useAxiosUser from "../../hooks/useAxiosUser";
+import ReviewSlider from "../shared/ReviewSlider";
 
 export default function ProductDetails() {
   const { user } = useAuth();
@@ -123,6 +124,9 @@ export default function ProductDetails() {
                   className="bg-blue-500 text-gray-600 p-3 font-semibold rounded-xl cursor-pointer"
                 />
               </form>
+            </div>
+            <div className="w-[500px] h-[300px]  flex items-center justify-center">
+              <ReviewSlider id={_id} />
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 // import Img2 from "../assets/github.png";
-// import Img from "../assets/google.png";
+import Img from "../../assets/google.png";
 
 import useAuth from "../../hooks/useAuth";
 
@@ -15,7 +15,7 @@ export default function SocialLogin() {
         >
           <img
             className="w-8 h-8 object-contain"
-            // src={Img}
+            src={Img}
             alt="Google Login"
           />
         </button>
