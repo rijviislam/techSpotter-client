@@ -18,14 +18,27 @@ export default function FeaturedProducts() {
       return result.data;
     },
   });
+
   useEffect(() => {
     if (products.length > 0) {
       const sortedProducts = [...products].sort(
         (a, b) => new Date(b.postedTime) - new Date(a.postedTime)
       );
-      setAllSortProducts(sortedProducts);
+
+      const featuredProduct = sortedProducts.find(
+        (product) => product.isFeatured === "true"
+      );
+      const latestProducts = sortedProducts.filter(
+        (product) => product.isFeatured !== "true"
+      );
+
+      const allSortProducts = featuredProduct
+        ? [featuredProduct, ...latestProducts.slice(0, 3)]
+        : latestProducts.slice(0, 4);
+      setAllSortProducts(allSortProducts);
     }
   }, [products]);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -40,7 +53,7 @@ export default function FeaturedProducts() {
         Featured Products{" "}
       </h2>
       <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 lg:gap-4">
-        {allSortproducts.slice(0, 4).map((product) => (
+        {allSortproducts?.map((product) => (
           <div
             key={product._id}
             className="card w-70 bg-base-100 shadow-xl -z-50"

@@ -30,6 +30,7 @@ export default function AddProduct() {
     let voteCount = 0;
     const reported = "false";
     const tags = selected;
+    const isFeatured = "false";
 
     if (result.data.success) {
       const productItem = {
@@ -39,6 +40,7 @@ export default function AddProduct() {
         status,
         reported,
         tags,
+        isFeatured,
         email: data.ownerEmail,
         links: data.links,
         description: data.description,

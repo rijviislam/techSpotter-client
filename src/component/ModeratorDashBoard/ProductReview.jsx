@@ -29,6 +29,17 @@ export default function ProductReview() {
       }
     });
   };
+  const handleFeatured = (id) => {
+    axiosSecure.patch(`/product-review-queue-feature/${id}`).then((res) => {
+      console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        // /show a aleart
+        console.log("Accepted");
+        alert("Product Accept successfully!");
+        refetch();
+      }
+    });
+  };
   const handleReject = (id) => {
     axiosSecure.patch(`/product-review-queue-reject/${id}`).then((res) => {
       console.log(res.data);
@@ -72,17 +83,18 @@ export default function ProductReview() {
                     </Link>
                   </td>
                   <td>
-                    <Link to={`/product-details/${product._id}`}>
-                      <button className="badge-md bg-blue-500 font-semibold text-white rounded-md">
-                        Make Featured
-                      </button>
-                    </Link>
+                    <button
+                      onClick={() => handleFeatured(product._id)}
+                      className="badge-md bg-red-500 font-semibold text-white rounded-md"
+                    >
+                      Make Featured
+                    </button>
                   </td>
                   <td>
                     <button
                       onClick={() => handleAccept(product._id)}
                       disabled={product.status === "accepted"}
-                      className="btn btn-sm bg-lime-300 text-gray-600"
+                      className="btn btn-sm bg-emerald-500 text-gray-600"
                     >
                       Accept
                     </button>
