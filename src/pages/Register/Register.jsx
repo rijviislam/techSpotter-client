@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 export default function Register() {
   const { createUser, updateImageAndName, setReload } = useAuth();
   const [regError, setRegError] = useState("");
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -17,10 +18,11 @@ export default function Register() {
     setRegError("");
 
     createUser(email, password)
-      .then((res) => {
+      .then(() => {
         updateImageAndName(name, image).then(() => {
           setReload(true);
         });
+        navigate("/");
         reset();
       })
 

@@ -4,10 +4,8 @@ import { TbArrowBigUpLineFilled } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import useAxiosUser from "../../../hooks/useAxiosUser";
 
 export default function TrendingProducts() {
-  const axiosProducts = useAxiosUser();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [checked, setChecked] = useState([]);
