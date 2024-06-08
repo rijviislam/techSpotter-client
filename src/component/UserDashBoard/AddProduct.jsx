@@ -13,7 +13,6 @@ export default function AddProduct() {
   const axiosUser = useAxiosUser();
   const navigate = useNavigate();
   const [selected, setSelected] = useState(["AI"]);
-  const [votedUserEmail, setVotedUserEmail] = useState([]);
 
   const image_hosting_key = import.meta.env.VITE_IMAGE_API_KEY;
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -32,7 +31,6 @@ export default function AddProduct() {
     const reported = "false";
     const tags = selected;
     const isFeatured = "false";
-    const votedEmail = [...votedUserEmail];
 
     if (result.data.success) {
       const productItem = {
@@ -43,7 +41,6 @@ export default function AddProduct() {
         reported,
         tags,
         isFeatured,
-        votedEmail,
         email: data.ownerEmail,
         links: data.links,
         description: data.description,
