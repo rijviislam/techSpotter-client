@@ -1,7 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { TbArrowBigUpLineFilled } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAxiosUser from "../../../hooks/useAxiosUser";
@@ -22,12 +23,10 @@ export default function TrendingProducts() {
     queryKey: ["trendingProducts"],
     queryFn: async () => {
       const result = await axiosProducts.get("/trending-products");
-      console.log(result.data);
       return result.data;
     },
   });
 
-  console.log(checked);
   useEffect(() => {
     if (trendingProducts.length > 0) {
       const sortedProducts = [...trendingProducts].sort(
@@ -37,94 +36,59 @@ export default function TrendingProducts() {
     }
   }, [trendingProducts]);
 
-  // ------------------------------------------------
+  useEffect(() => {
+    if (trendingProducts.length > 0) {
+      const sortedProducts = [...trendingProducts].sort(
+        (a, b) => b.voteCount - a.voteCount
+      );
+      setSortedVote(sortedProducts);
+    }
+  }, [trendingProducts]);
 
-  // const handleProductVote = async (id, currentVoteCount, email) => {
-  //   const hasVoted = checked.includes(id); // Check if the user has already voted for this product
-  //   if (hasVoted) {
-  //     console.log("You have already voted for this product.");
-  //     return;
-  //   }
-  //   try {
-  //     await mutateAsync({ id, voteCount: currentVoteCount + 1 });
-  //     setChecked([...checked, id]);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // const { mutateAsync } = useMutation({
-  //   mutationFn: async ({ id, voteCount, email }) => {
-  //     if (user) {
-  //       const currentProduct = await axiosProducts.get(`/product/${id}`);
-  //       const product = currentProduct.data;
-  //       if (product.votedEmail.includes(email)) {
-  //         console.log("You voting this product already !");
-  //         return;
-  //       }
-  //       const votedPersonEmail = [...product.votedEmail, email];
-  //       const result = await axiosSecure.put(`/trending-products/${id}`, {
-  //         voteCount,
-  //         votedEmail: votedPersonEmail,
-  //       });
-  //       console.log(result.data);
-  //       return result.data;
-  //     }
-  //     return navigate("/login");
-  //   },
-  //   onSuccess: () => {
-  //     refetch();
-  //   },
-  // });
+  const handleProductVote = async (id, currentVoteCount, email) => {
+    const findVotedProduct = trendingProducts.find((item) => item._id === id);
+    if (
+      findVotedProduct.votedEmail &&
+      findVotedProduct.votedEmail.includes(email)
+    ) {
+      Swal.fire({
+        title: "You have already voted",
+        text: "You can only vote for a product once.",
+        icon: "warning",
+        confirmButtonText: "OK",
+        showClass: {
+          popup: "animate__animated animate__fadeInUp animate__faster",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutDown animate__faster",
+        },
+      });
+      return;
+    }
 
-  // -----------------------------------------
-  const handleProductVote = async (
-    id,
-    currentVoteCount,
-    email,
-    mutateAsync,
-    setChecked,
-    checked,
-    axiosProducts,
-    axiosSecure,
-    user,
-    navigate,
-    refetch
-  ) => {
+    const voteCount = parseInt(currentVoteCount, 10) + 1;
     try {
-      // Check if checked array is initialized
-      if (!Array.isArray(checked)) {
-        console.log("Checked array is not initialized.");
-        return;
-      }
-
-      const hasVoted = checked.includes(id); // Check if the user has already voted for this product
-      if (hasVoted) {
-        console.log("You have already voted for this product.");
-        return;
-      }
-
-      if (user) {
-        const currentProduct = await axiosProducts.get(`/product/${id}`);
-        const product = currentProduct.data;
-        if (product.votedEmail.includes(email)) {
-          console.log("You voting this product already !");
-          return;
-        }
-        const votedPersonEmail = [...product.votedEmail, email];
-        const result = await axiosSecure.put(`/trending-products/${id}`, {
-          voteCount: currentVoteCount + 1,
-          votedEmail: votedPersonEmail,
-        });
-        console.log(result.data);
-        mutateAsync({ id, voteCount: currentVoteCount + 1 }); // Update the vote count using mutateAsync
-        setChecked([...checked, id]); // Update the list of checked products
-      } else {
-        navigate("/login");
-      }
+      await mutateAsync({ id, voteCount });
     } catch (error) {
       console.log(error);
     }
   };
+
+  const { mutateAsync } = useMutation({
+    mutationFn: async ({ id, voteCount }) => {
+      if (user) {
+        const result = await axiosSecure.patch(`/trending-products/${id}`, {
+          voteCount,
+          votedEmail: user.email,
+        });
+        return result.data;
+      }
+      return navigate("/login");
+    },
+    onSuccess: () => {
+      refetch();
+    },
+  });
 
   if (isLoading)
     return (
@@ -166,7 +130,7 @@ export default function TrendingProducts() {
                     handleProductVote(
                       product._id,
                       product.voteCount,
-                      user.email
+                      user?.email
                     )
                   }
                   disabled={product?.email === user?.email}
