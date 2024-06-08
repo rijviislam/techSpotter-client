@@ -22,99 +22,88 @@ export default function AuthProvider({ children }) {
   const [loader, setLoader] = useState(true);
   const [reload, setReload] = useState(false);
   const axiosUser = useAxiosUser();
-  // CREATE USER //
 
   const createUser = (email, password) => {
     setLoader(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  // LOGIN USER //
   const loginUser = (email, password) => {
     setLoader(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  //   SAVE USER ON DB //
-  const saveUser = async (user) => {
-    console.log(user.displayName);
-    const name = user?.displayName ? user.displayName : "";
-    const currentUser = {
-      name,
-      email: user?.email,
-      role: "normalUser",
-      status: "none-verified",
-    };
-    const idToken = await user.getIdToken();
-    // const { data } = await axiosUser.put(`/user`, currentUser);
-    const { data } = await axiosUser.put(`/user`, currentUser, {
-      headers: {
-        Authorization: `Bearer ${idToken}`,
-      },
-    });
-    return data;
-  };
-  // UPDATE PROFILE
-
-  // OBSERVER USER IS HE/SHE LOGIN OR NOT //
-  useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, async (observ) => {
-      setUser(observ);
-      if (observ) {
-        console.log(observ);
-        await saveUser(observ);
-        const userInformation = { email: observ.email };
-        // get token and store client //
-        axios
-          .post(`${import.meta.env.VITE_API_URL}/jwt`, userInformation)
-          .then((res) => {
-            if (res.data.token) {
-              localStorage.setItem("Token", res.data.token);
-
-              setLoader(false);
-            }
-          });
-      } else {
-        localStorage.removeItem("Token");
-        setLoader(false);
-      }
-    });
-    return () => {
-      unSubscribe();
-    };
-  }, [reload]);
-  // LOGED OUT //
-
-  const logOutUser = () => {
-    setLoader(true);
-
-    return signOut(auth);
-  };
-
-  // UPDATE USER IMAGE AND NAME //
   const updateImageAndName = (name, image) => {
+    console.log("Updating profile with name:", name, "and image:", image);
     return updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: image,
     });
   };
 
-  // -----SOCIAL LOGIN----- //
+  const getToken = async (email) => {
+    const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, {
+      email,
+    });
+    return data;
+  };
 
-  // GOOGLE LOGIN //
+  const saveUser = async (user) => {
+    const currentUser = {
+      name: user?.displayName,
+      email: user?.email,
+      role: "normalUser",
+      status: "none-verified",
+    };
+    console.log("Saving user with displayName:", user?.displayName);
+    const { data } = await axios.put(
+      `${import.meta.env.VITE_API_URL}/user`,
+      currentUser
+    );
+    return data;
+  };
+
+  useEffect(() => {
+    const unSubscribe = onAuthStateChanged(auth, async (observ) => {
+      if (observ) {
+        console.log(observ);
+        await getToken(observ.email);
+        // Save the user after profile has been updated
+        if (observ.displayName) {
+          await saveUser(observ);
+        }
+      } else {
+        localStorage.removeItem("Token");
+        setLoader(false);
+      }
+      setUser(observ);
+      setLoader(false);
+    });
+    return () => {
+      unSubscribe();
+    };
+  }, [reload]);
+
+  const logOutUser = () => {
+    setLoader(true);
+    return signOut(auth);
+  };
+
   const googleLogin = () => {
     setLoader(true);
     return signInWithPopup(auth, googleProvider);
   };
-  // GITHUB LOGIN //
+
   const githubLogin = () => {
     setLoader(true);
     return signInWithPopup(auth, githubProvider);
   };
+
   const allvalues = {
     user,
     loader,
     createUser,
+    setLoader,
     setReload,
     loginUser,
     logOutUser,
@@ -122,6 +111,7 @@ export default function AuthProvider({ children }) {
     googleLogin,
     githubLogin,
   };
+
   return (
     <div>
       <AuthContext.Provider value={allvalues}>{children}</AuthContext.Provider>
