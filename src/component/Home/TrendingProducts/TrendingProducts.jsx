@@ -1,8 +1,8 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { TbArrowBigUpLineFilled } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import Vote from "../../../assets/up-arrow.png";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAxiosUser from "../../../hooks/useAxiosUser";
@@ -11,7 +11,6 @@ export default function TrendingProducts() {
   const axiosProducts = useAxiosUser();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  const [checked, setChecked] = useState([]);
   const [sortedVote, setSortedVote] = useState([]);
   const navigate = useNavigate();
   const {
@@ -134,11 +133,10 @@ export default function TrendingProducts() {
                     )
                   }
                   disabled={product?.email === user?.email}
-                  // disabled={user?.email === product.email}
-                  className="btn btn-primary"
+                  className="rounded-lg w-16 flex items-center justify-between p-1 px-2 bg-teal-900"
                 >
+                  <img className="w-5 h-5" src={Vote} alt="" />
                   {parseInt(product.voteCount)}
-                  <TbArrowBigUpLineFilled />
                 </button>
               </div>
             </div>
