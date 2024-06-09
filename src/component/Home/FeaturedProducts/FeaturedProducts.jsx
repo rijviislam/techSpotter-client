@@ -146,34 +146,6 @@ export default function FeaturedProducts() {
           </div>
         ))}
       </div>
-      {/* <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 lg:gap-4">
-        {allSortproducts.map((product) => (
-          <div
-            key={product._id}
-            className="card w-70 bg-base-100 shadow-xl -z-50"
-          >
-            <figure>
-              <img src={product.productImage} alt={product.productName} />
-            </figure>
-            <div className="card-body">
-              <h2 className="card-title">{product.productName}</h2>
-              {product.tags?.map((tag, idx) => (
-                <p key={idx}>{tag}</p>
-              ))}
-              <button
-                onClick={() =>
-                  handleProductVote(product._id, product.voteCount, user?.email)
-                }
-                disabled={product.email === user?.email}
-                className="border border-red-700 rounded-lg w-16 flex items-center cursor-pointer justify-between p-1 px-2 bg-teal-900"
-              >
-                <img className="w-5 h-5" src={Vote} alt="Vote" />
-                {parseInt(product.voteCount)}
-              </button>
-            </div>
-          </div>
-        ))}
-      </div> */}
     </div>
   );
 }
