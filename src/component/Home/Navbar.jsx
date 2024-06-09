@@ -67,11 +67,11 @@ export default function Navbar() {
                 </div>
               </div>
               {isOpen && (
-                <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[10vw] bg-white overflow-hidden right-0 top-12 text-sm">
-                  <div className="flex flex-col cursor-pointer">
+                <div className="absolute rounded-xl shadow-md lg:w-[40vw] md:w-[15vw] w-[15vh] bg-white overflow-hidden right-0 top-12 text-sm ">
+                  <div className="flex flex-col cursor-pointer ">
                     {user ? (
                       <>
-                        <p className="text-sm px-8 py-1 text-green-500 font-medium select-none">
+                        <p className="text-sm px-4 py-1 text-teal-500 font-medium select-none">
                           {user.displayName}
                         </p>
                         <Link

@@ -2,8 +2,10 @@ import { createBrowserRouter } from "react-router-dom";
 import ManageCoupons from "../component/AdminDashBoard/ManageCoupons";
 import ManageUsers from "../component/AdminDashBoard/ManageUsers";
 import Statistics from "../component/AdminDashBoard/Statistics";
+import CouponSlider from "../component/Home/CouponSlider";
 import Error from "../component/Home/Error";
 import FeaturedProducts from "../component/Home/FeaturedProducts/FeaturedProducts";
+import Hero from "../component/Home/Hero";
 import Home from "../component/Home/Home";
 import ProductDetails from "../component/Home/ProductDetails";
 import TrendingProducts from "../component/Home/TrendingProducts/TrendingProducts";
@@ -32,12 +34,20 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "/hero",
+        element: <Hero />,
+      },
+      {
         path: "/feature-products",
         element: <FeaturedProducts />,
       },
       {
         path: "/trending-products",
         element: <TrendingProducts />,
+      },
+      {
+        path: "/coupon-slider",
+        element: <CouponSlider />,
       },
       {
         path: "/products",

@@ -98,19 +98,19 @@ export default function TrendingProducts() {
   }
 
   return (
-    <div className="m-8">
+    <div className="m-8 my-10">
       <h2 className="text-3xl text-teal-600 font-bold mb-4">
         TrendingProducts
       </h2>
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 place-items-center">
         {sortedVote.slice(0, 6).map((product) => (
           <div
             key={product._id}
-            className="card card-compact w-96 bg-base-100 shadow-xl"
+            className="card card-compact lg:w-[350px] bg-base-100 shadow-xl border border-gray-600 h-[400px]"
           >
-            <figure>
+            <figure className="w-full h-[250px] ">
               <img
-                className="w-20 h-20"
+                className="w-[350px] h-full object-cover"
                 src={product.productImage}
                 alt="Shoes"
               />
@@ -122,7 +122,13 @@ export default function TrendingProducts() {
               >
                 <h2 className="card-title">{product.productName}</h2>
               </Link>
-              <p>If a dog chews shoes whose shoes does he choose?</p>
+              <div>
+                {product?.tags?.map((tag, idx) => (
+                  <p className="flex gap-1" key={idx}>
+                    {tag}
+                  </p>
+                ))}
+              </div>
               <div className="card-actions justify-end">
                 <button
                   onClick={() =>
@@ -133,7 +139,7 @@ export default function TrendingProducts() {
                     )
                   }
                   disabled={product?.email === user?.email}
-                  className="rounded-lg w-16 flex items-center justify-between p-1 px-2 bg-teal-900"
+                  className="rounded-lg w-16 flex items-center cursor-pointer justify-between p-1 px-2 bg-teal-900"
                 >
                   <img className="w-5 h-5" src={Vote} alt="" />
                   {parseInt(product.voteCount)}

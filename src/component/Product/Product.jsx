@@ -1,9 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { TbArrowBigUpLineFilled } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import Vote from "../../assets/up-arrow.png";
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAxiosUser from "../../hooks/useAxiosUser";
-
 export default function Product() {
   const axiosProducts = useAxiosUser();
   const [page, setPage] = useState(1);
@@ -11,11 +13,15 @@ export default function Product() {
   const [inputValue, setInputValue] = useState("");
   const [searchTags, setSearchTags] = useState("");
   const itemsPerPage = 6;
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
   const {
     data: acceptedProduct = { result: [], pagination: { pageCount: 0 } },
     isLoading,
     isError,
+    refetch,
   } = useQuery({
     queryKey: ["acceptedProduct", page, searchTags],
     queryFn: async () => {
@@ -55,6 +61,50 @@ export default function Product() {
       handleSearch();
     }
   };
+  const handleProductVote = async (id, currentVoteCount, email) => {
+    const findVotedProduct = acceptedProduct.find((item) => item._id === id);
+    if (
+      findVotedProduct.votedEmail &&
+      findVotedProduct.votedEmail.includes(email)
+    ) {
+      Swal.fire({
+        title: "You have already voted",
+        text: "You can only vote for a product once.",
+        icon: "warning",
+        confirmButtonText: "OK",
+        showClass: {
+          popup: "animate__animated animate__fadeInUp animate__faster",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutDown animate__faster",
+        },
+      });
+      return;
+    }
+
+    const voteCount = parseInt(currentVoteCount, 10) + 1;
+    try {
+      await mutateAsync({ id, voteCount });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const { mutateAsync } = useMutation({
+    mutationFn: async ({ id, voteCount }) => {
+      if (user) {
+        const result = await axiosSecure.patch(`/trending-products/${id}`, {
+          voteCount,
+          votedEmail: user.email,
+        });
+        return result.data;
+      }
+      return navigate("/login");
+    },
+    onSuccess: () => {
+      refetch();
+    },
+  });
 
   if (isLoading) return <p>Loading.....</p>;
   if (isError) return <p>Error loading data...</p>;
@@ -103,11 +153,20 @@ export default function Product() {
                 <h2 className="card-title">{product.productName}</h2>
                 <p>{product.description}</p>
                 <div className="card-actions justify-between">
-                  <button className="btn btn-primary">
+                  <button
+                    onClick={() =>
+                      handleProductVote(
+                        product._id,
+                        product.voteCount,
+                        user?.email
+                      )
+                    }
+                    disabled={product?.email === user?.email}
+                    className="rounded-lg w-16 flex items-center justify-between p-1 px-2 bg-teal-900"
+                  >
+                    <img className="w-5 h-5" src={Vote} alt="" />
                     {parseInt(product.voteCount)}
-                    <TbArrowBigUpLineFilled />
                   </button>
-                  <button className="btn btn-primary">Buy Now</button>
                 </div>
               </div>
             </div>

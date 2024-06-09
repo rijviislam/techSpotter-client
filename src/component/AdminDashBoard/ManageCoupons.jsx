@@ -102,77 +102,12 @@ export default function ManageCoupons() {
               <h1 className="text-xl">Expiry Date: {coupon.expiryDate}</h1>
               <div className="flex justify-between">
                 <button
-                  onClick={() => setIsOpen(true)}
+                  // onClick={() => setIsOpen(true)}
                   className="btn btn-sm bg-blue-400 text-white"
                 >
                   Edit
                 </button>
-                {/* <AnimatePresence>
-                  {isOpen && (
-                    <Dialog
-                      static
-                      open={isOpen}
-                      onBlur={() => setIsOpen(false)}
-                      className="relative z-50 left-[250px] border flex items-center justify-center border-red-600"
-                    >
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 bg-black/30 border border-red-600"
-                      />
-                      <div className="fixed inset-0 flex w-screen border border-red-600 items-center justify-center p-4">
-                        <DialogPanel
-                          as={motion.div}
-                          initial={{ opacity: 0, scale: 0.95 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.95 }}
-                          className="w-3xl  space-y-4 bg-white p-12 border border-red-600"
-                        >
-                          <form
-                            className="flex flex-col w-full gap-5"
-                            onSubmit={handleSubmit(onSubmit)}
-                          >
-                            <input
-                              className="bg-gray-500 w-[600px] h-[50px]"
-                              defaultValue={coupon.couponCode}
-                              type="number"
-                              {...register("couponCode", {
-                                required: true,
-                                maxLength: 20,
-                              })}
-                            />
-                            <input
-                              type="number"
-                              {...register("discountAmount", {
-                                pattern: /^[A-Za-z]+$/i,
-                              })}
-                            />
-                            <input
-                              {...register("couponCodeDescription", {
-                                min: 18,
-                                max: 99,
-                              })}
-                            />
-                            <input
-                              type="date"
-                              {...register("expiryDate", { required: true })}
-                            />
-                            <input type="submit" />
-                          </form>
-                          <div className="flex gap-4">
-                            <button onClick={() => setIsOpen(false)}>
-                              Cancel
-                            </button>
-                            <button onClick={() => setIsOpen(false)}>
-                              Deactivate
-                            </button>
-                          </div>
-                        </DialogPanel>
-                      </div>
-                    </Dialog>
-                  )}
-                </AnimatePresence> */}
+
                 <div>
                   <button
                     onClick={() => handleDeleteCoupon(coupon._id)}
