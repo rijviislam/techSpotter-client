@@ -54,11 +54,11 @@ export default function ProductReview() {
   if (isLoading) return <p>Loading.....</p>;
   if (isError) return <p>Error.....</p>;
   return (
-    <div>
-      <h2 className="text-3xl">ProductReview {allProduct.length}</h2>
+    <div className="lg:w-full w-[360px]">
+      <h2 className="text-3xl my-10 text-teal-600 font-bold">ProductReview</h2>
 
       <div>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto my-10">
           <table className="table">
             <thead>
               <tr>
@@ -77,7 +77,7 @@ export default function ProductReview() {
                   <td>{product.productName}</td>
                   <td>
                     <Link to={`/product-details/${product._id}`}>
-                      <button className="badge-md bg-blue-500 font-semibold text-white rounded-md">
+                      <button className="btn btn-sm bg-blue-500 font-semibold text-white rounded-md">
                         Details
                       </button>
                     </Link>
@@ -85,7 +85,7 @@ export default function ProductReview() {
                   <td>
                     <button
                       onClick={() => handleFeatured(product._id)}
-                      className="badge-md bg-red-500 font-semibold text-white rounded-md"
+                      className="btn btn-sm bg-red-500 font-semibold text-white rounded-md"
                     >
                       Make Featured
                     </button>

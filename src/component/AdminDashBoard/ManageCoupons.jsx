@@ -57,17 +57,17 @@ export default function ManageCoupons() {
 
   console.log(coupons);
   return (
-    <div>
-      <h2 className="text-3xl">ManageCoupons</h2>
-      <div className="flex w-full items-start justify-between gap-10">
+    <div className="lg:w-full w-[360px]">
+      <h2 className="text-3xl my-10 text-teal-600 font-bold">ManageCoupons</h2>
+      <div className="flex lg:flex-row flex-col w-full items-start justify-between gap-10">
         <div className="w-1/2">
           <form
-            className=" mt-8 flex flex-col gap-3 w-[500px]"
+            className=" mt-8 flex flex-col gap-3 lg:w-[500px] w-[360px]"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div className="flex w-full justify-between gap-4">
+            <div className="flex lg:flex-row flex-col w-full justify-between gap-4">
               <input
-                className="bg-white w-1/2 text-black h-12 px-3"
+                className="bg-white lg:w-1/2  text-black h-12 px-3"
                 type="number"
                 placeholder="Coupon Code"
                 {...register("couponCode", { required: true })}
@@ -93,7 +93,10 @@ export default function ManageCoupons() {
         </div>
         <div className="flex w-1/2 flex-col gap-8 items-center justify-center">
           {coupons.map((coupon) => (
-            <div key={coupon._id} className="border border-red-700 p-5">
+            <div
+              key={coupon._id}
+              className="border border-red-700 p-5 sm:w-[360px]"
+            >
               <h2>Coupon Code: {coupon.couponCode}</h2>
               <h2 className="text-2xl">
                 Discount Ammount if you use this coupon ${coupon.discountAmount}

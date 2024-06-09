@@ -2,7 +2,7 @@ import HeroImage from "../../assets/undraw_virtual_reality_re_yg8i.svg";
 export default function Hero() {
   return (
     <div
-      className="hero lg:min-h-screen md:min-h-screen h-1/2 w-[360px] md:w-[768px] lg:w-full"
+      className="hero lg:min-h-screen md:min-h-screen h-1/2 w-[360px] md:w-[768px] lg:w-full -z-50"
       style={{
         backgroundImage: `url(${HeroImage})`,
       }}
@@ -10,7 +10,7 @@ export default function Hero() {
       <div className="hero-overlay bg-opacity-60"></div>
       <div className="hero-content text-center text-neutral-content">
         <div className="max-w-[700px]">
-          <h1 className="mb-5 text-5xl font-bold text">
+          <h1 className="mb-5 lg:text-5xl md:text-4xl font-bold text-2xl -z-50">
             Explore The World Of <br />
             TECHNOLOGY
           </h1>

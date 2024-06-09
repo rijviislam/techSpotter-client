@@ -67,7 +67,7 @@ export default function Navbar() {
                 </div>
               </div>
               {isOpen && (
-                <div className="absolute rounded-xl shadow-md lg:w-[40vw] md:w-[15vw] w-[15vh] bg-white overflow-hidden right-0 top-12 text-sm ">
+                <div className="absolute rounded-xl shadow-md lg:w-[10vw] md:w-[15vw] sm:w-[15vh] bg-white overflow-hidden right-0 top-12 text-sm z-50">
                   <div className="flex flex-col cursor-pointer ">
                     {user ? (
                       <>
@@ -92,13 +92,13 @@ export default function Navbar() {
                       <>
                         <Link
                           to="/login"
-                          className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                          className="px-4 py-3 hover:bg-teal-400 transition font-semibold bg-teal-600"
                         >
                           Login
                         </Link>
                         <Link
                           to="/signup"
-                          className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                          className="px-4 py-3 hover:bg-teal-400 transition font-semibold bg-teal-600"
                         >
                           Sign Up
                         </Link>
@@ -112,12 +112,12 @@ export default function Navbar() {
         ) : (
           <div className="flex gap-1 lg:gap-3">
             <Link to="/login">
-              <button className="btn btn-sm text-white  btn-primary">
+              <button className="btn btn-sm text-white  btn-primary bg-teal-600 border-none">
                 Login
               </button>
             </Link>
             <Link to="/register">
-              <button className="btn btn-sm text-white  btn-primary">
+              <button className="btn btn-sm text-white bg-teal-600 btn-primary border-none">
                 Register
               </button>
             </Link>

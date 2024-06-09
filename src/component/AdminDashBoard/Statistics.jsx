@@ -38,8 +38,8 @@ export default function Statistics() {
   isLoading && <p>Loading...</p>;
   isError && <p>Error loading data.</p>;
   return (
-    <div>
-      <h2 className="text-3xl">Statistics</h2>
+    <div className="w-[360px] lg:w-full">
+      <h2 className="text-3xl mt-10 text-teal-600 font-bold">Statistics</h2>
 
       {!isLoading && !isError && (
         <PieChart data={chartData} width={800} height={800} />

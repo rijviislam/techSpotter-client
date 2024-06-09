@@ -115,7 +115,7 @@ export default function Product() {
       <h2 className="text-3xl text-teal-600 font-bold mb-4 lg:ml-8 ml-2">
         Product
       </h2>
-      <div className="flex ml-5 items-center justify-center my-5">
+      <div className="flex mx-4 items-center justify-center my-5">
         <label className="input w-[400px] input-bordered flex items-center gap-2">
           <input
             type="text"

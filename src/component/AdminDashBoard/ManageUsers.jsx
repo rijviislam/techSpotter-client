@@ -46,8 +46,8 @@ export default function ManageUsers() {
   };
   console.log(allUsers);
   return (
-    <div>
-      <h2 className="text-3xl">ManageUsers: {allUsers.length}</h2>
+    <div className="lg:w-full  w-[360px]">
+      <h2 className="text-3xl my-10 text-teal-600 font-bold">ManageUsers</h2>
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
