@@ -38,7 +38,7 @@ export default function Statistics() {
   isLoading && <p>Loading...</p>;
   isError && <p>Error loading data.</p>;
   return (
-    <div className="w-[360px] lg:w-full">
+    <div className="w-[360px] lg:w-full md:w-[768px]">
       <h2 className="text-3xl mt-10 text-teal-600 font-bold">Statistics</h2>
 
       {!isLoading && !isError && (

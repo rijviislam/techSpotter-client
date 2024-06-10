@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Vote from "../../../assets/up-arrow.png";
 import useAuth from "../../../hooks/useAuth";
@@ -107,43 +107,42 @@ export default function FeaturedProducts() {
       </h2>
       <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5 mt-5 ">
         {allSortproducts.map((product) => (
-          <div
-            key={product._id}
-            className="card card-compact bg-base-100 shadow-xl border border-gray-600"
-          >
-            <figure className="w-full h-[250px] ">
-              <img
-                className="w-[350px] h-full object-cover"
-                src={product.productImage}
-                alt="Shoes"
-              />
-            </figure>
-            <div className="card-body">
-              <h2 className="card-title">{product.productName}</h2>
-              <div>
-                {" "}
-                {product?.tags?.map((tag, idx) => (
-                  <p key={idx}>{tag}</p>
-                ))}
-              </div>
-              <div className="card-actions justify-end">
-                <button
-                  onClick={() =>
-                    handleProductVote(
-                      product._id,
-                      product.voteCount,
-                      user?.email
-                    )
-                  }
-                  disabled={product.email === user?.email}
-                  className=" rounded-lg w-16 flex items-center cursor-pointer justify-between p-1 px-2 bg-teal-900"
-                >
-                  <img className="w-5 h-5" src={Vote} alt="Vote" />
-                  {parseInt(product.voteCount)}
-                </button>
+          <Link to={`/product-details/${product._id}`} key={product._id}>
+            <div className="card card-compact bg-base-100 shadow-xl border border-gray-600">
+              <figure className="w-full h-[250px] ">
+                <img
+                  className="w-[350px] h-full object-cover"
+                  src={product.productImage}
+                  alt="Shoes"
+                />
+              </figure>
+              <div className="card-body">
+                <h2 className="card-title">{product.productName}</h2>
+                <div>
+                  {" "}
+                  {product?.tags?.map((tag, idx) => (
+                    <p key={idx}>{tag}</p>
+                  ))}
+                </div>
+                <div className="card-actions justify-end">
+                  <button
+                    onClick={() =>
+                      handleProductVote(
+                        product._id,
+                        product.voteCount,
+                        user?.email
+                      )
+                    }
+                    disabled={product.email === user?.email}
+                    className=" rounded-lg w-16 flex items-center cursor-pointer justify-between p-1 px-2 bg-teal-900"
+                  >
+                    <img className="w-5 h-5" src={Vote} alt="Vote" />
+                    {parseInt(product.voteCount)}
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

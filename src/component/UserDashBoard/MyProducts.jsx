@@ -6,7 +6,7 @@ export default function MyProducts() {
   if (isLoading) return <p>Loadin....</p>;
   return (
     <div>
-      <h2 className="text-3xl">MyProducts {products.length}</h2>
+      <h2 className="text-3xl my-10 text-teal-600 font-bold">MyProducts</h2>
 
       <div className="mt-10">
         <div className="overflow-x-auto">

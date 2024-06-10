@@ -33,10 +33,12 @@ export default function UserDashBoardSidebar() {
   return (
     <div className="mr-10 relative">
       {/* Small Screen Navbar */}
-      <div className="bg-gray-100 text-gray-800 flex justify-between md:hidden  w-[360px]">
+      <div className="bg-gray-100 text-gray-800 flex justify-between md:w-[768px] w-[360px]">
         <div>
           <div className="block cursor-pointer p-4 font-bold">
-            <Link to="/">TechSpotter</Link>
+            <Link to="/" className="text-3xl  text-teal-600 font-bold">
+              TechSpotter
+            </Link>
           </div>
         </div>
 
@@ -52,7 +54,7 @@ export default function UserDashBoardSidebar() {
           isActive && "-translate-x-full flex"
         }`}
       >
-        <div className="text-4xl">TechSpotter</div>
+        <div className="text-3xl  text-teal-600 font-bold">TechSpotter</div>
         <div className="lg:flex flex-col justify-between absolute top-16">
           {normalUser && (
             <nav>

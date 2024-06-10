@@ -57,15 +57,15 @@ export default function ManageCoupons() {
 
   console.log(coupons);
   return (
-    <div className="lg:w-full w-[360px]">
+    <div className="lg:w-full w-[360px] md:w-[768px]">
       <h2 className="text-3xl my-10 text-teal-600 font-bold">ManageCoupons</h2>
-      <div className="flex lg:flex-row flex-col w-full items-start justify-between gap-10">
+      <div className="flex lg:flex-row md:flex-row flex-col w-full items-start justify-between gap-10">
         <div className="w-1/2">
           <form
             className=" mt-8 flex flex-col gap-3 lg:w-[500px] w-[360px]"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div className="flex lg:flex-row flex-col w-full justify-between gap-4">
+            <div className="flex lg:flex-row md:flex-row flex-col w-full justify-between gap-4">
               <input
                 className="bg-white lg:w-1/2  text-black h-12 px-3"
                 type="number"

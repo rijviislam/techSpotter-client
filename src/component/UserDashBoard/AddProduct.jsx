@@ -63,10 +63,10 @@ export default function AddProduct() {
   };
 
   return (
-    <div className="flex items-center justify-center w-full min-h-screen">
+    <div className="flex items-center justify-center lg:w-full min-h-screen w-[360px] md:w-[768px]">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex bg-cyan-400 p-10 flex-col gap-4"
+        className="flex bg-teal-600 p-10 flex-col gap-4"
       >
         <div className="flex w-full gap-4">
           <input

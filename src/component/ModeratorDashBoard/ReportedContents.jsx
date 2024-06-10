@@ -36,7 +36,7 @@ export default function ReportedContents() {
   };
 
   return (
-    <div className="lg:w-full  w-[360px]">
+    <div className="lg:w-full  w-[360px] md:w-[768px]">
       <h2 className="text-3xl my-10 text-teal-600 font-bold">
         Reported Contents
       </h2>

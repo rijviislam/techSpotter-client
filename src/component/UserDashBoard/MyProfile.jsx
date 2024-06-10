@@ -25,8 +25,8 @@ export default function MyProfile() {
   };
   console.log(userInfo);
   return (
-    <div>
-      <div className=" h-20 flex w-[360px] lg: w-full">
+    <div className="w-[360px] md:w-[768px] lg:w-full border border-red-700 h-screen flex flex-col items-center justify-center">
+      <div className=" h-20 flex">
         <img src={user?.photoURL} alt="" />
         {userInfo.status === "verified" && (
           <img className="w-8 h-8" src={Verified} alt="verified" />

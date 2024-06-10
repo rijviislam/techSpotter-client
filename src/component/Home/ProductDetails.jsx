@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { TbArrowBigUpLineFilled } from "react-icons/tb";
 import { useLoaderData } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAxiosUser from "../../hooks/useAxiosUser";
 import ReviewSlider from "../shared/ReviewSlider";
 
@@ -23,13 +24,14 @@ export default function ProductDetails() {
   const [disable, setDisable] = useState(false);
   const [review, setReview] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const axiosSecure = useAxiosSecure();
 
   const handleReport = (id) => {
     console.log(id);
     if (user?.email === email) {
       return alert("owner cannot report his post!");
     }
-    axiosUser.patch(`/product-details/${id}`).then((res) => {
+    axiosSecure.patch(`/product-details/${id}`).then((res) => {
       console.log(res.data);
       if (res.data.modifiedCount > 0) {
         // /show a aleart
@@ -68,7 +70,6 @@ export default function ProductDetails() {
 
   return (
     <div className="w-full">
-      <h2 className="text-3xl">Product Details {_id}</h2>
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row">
           <img src={productImage} className="min-w-sm rounded-lg shadow-2xl" />
