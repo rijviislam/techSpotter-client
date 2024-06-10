@@ -3,10 +3,10 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "../../../mystyle.css";
 import "../../../node_modules/swiper/swiper-bundle.min.css";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAxiosUser from "../../hooks/useAxiosUser";
 
 export default function CouponSlider() {
-  const axiosSecure = useAxiosSecure();
+  const axiosUser = useAxiosUser();
 
   // GET COUPONS //
   const {
@@ -16,7 +16,7 @@ export default function CouponSlider() {
   } = useQuery({
     queryKey: ["coupons"],
     queryFn: async () => {
-      const result = await axiosSecure.get("/coupons");
+      const result = await axiosUser.get("/coupons");
       return result.data;
     },
   });

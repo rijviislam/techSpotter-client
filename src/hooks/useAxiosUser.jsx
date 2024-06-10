@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosUser = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://techspotter-a12-server.vercel.app",
 });
 export default function useAxiosUser() {
   return axiosUser;

@@ -25,17 +25,21 @@ export default function MyProfile() {
   };
   console.log(userInfo);
   return (
-    <div className="w-[360px] md:w-[768px] lg:w-full border border-red-700 h-screen flex flex-col items-center justify-center">
-      <div className=" h-20 flex">
-        <img src={user?.photoURL} alt="" />
+    <div className="w-[360px] md:w-[768px] lg:w-full h-screen flex flex-col items-center justify-center">
+      <div className=" h-20 w-20  flex ">
+        <img
+          className="rounded-full w-full h-full border-2 border-teal-500 p-1"
+          src={user?.photoURL}
+          alt=""
+        />
         {userInfo.status === "verified" && (
           <img className="w-8 h-8" src={Verified} alt="verified" />
         )}
       </div>
-      <h2 className="text-3xl">{user?.displayName}</h2>
-      <h4 className="text-2xl">{user?.email}</h4>
+      <h2 className="text-3xl font-semibold my-3">{user?.displayName}</h2>
+      <h4 className="text-2xl font-semibold my-2">{user?.email}</h4>
       {userInfo.status !== "verified" && (
-        <div className="join">
+        <div className="join mt-3">
           <input
             className="input input-bordered join-item"
             placeholder="Email"
@@ -43,7 +47,7 @@ export default function MyProfile() {
           <Link to="/dashboard/payment">
             <button
               onClick={handleSubscribe}
-              className="btn join-item rounded-r-full"
+              className="btn join-item rounded-r-full bg-teal-600"
             >
               $ 15 to subscribe
             </button>

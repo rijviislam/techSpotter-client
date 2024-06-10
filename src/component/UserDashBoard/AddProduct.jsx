@@ -71,7 +71,7 @@ export default function AddProduct() {
         <div className="flex w-full gap-4">
           <input
             placeholder="Product Name"
-            className="bg-gray-100 w-1/2 h-12 px-5"
+            className="bg-gray-100 w-1/2 h-12 px-5 rounded-lg"
             {...register("productName", { required: true })}
           />
           <input
@@ -85,24 +85,24 @@ export default function AddProduct() {
           <input
             readOnly
             defaultValue={user?.email}
-            className="bg-gray-100 w-1/2 h-12 px-5"
+            className="bg-gray-100 w-1/2 h-12 px-5 rounded-lg"
             type="email"
             {...register("ownerEmail", { required: true })}
           />
           <input
             placeholder="Links"
-            className="bg-gray-100 w-1/2 h-12 px-5"
+            className="bg-gray-100 w-1/2 h-12 px-5 rounded-lg"
             {...register("links", { required: true })}
           />
         </div>
         <textarea
           placeholder="Description"
-          className="bg-gray-100 h-[200px] p-3 resize-none"
+          className="bg-gray-100 h-[200px] p-3 resize-none rounded-lg"
           {...register("description", { required: true })}
         />
         <div className="flex w-full gap-4">
           <input
-            className="bg-gray-100 w-1/2 h-12 px-5"
+            className="bg-gray-100 w-1/2 h-12 px-5 rounded-lg"
             type="text"
             readOnly
             defaultValue={user?.displayName}
@@ -114,12 +114,13 @@ export default function AddProduct() {
             onChange={setSelected}
             name="AI"
             placeHolder="enter tags"
+            classNames="bg-red-5000"
           />
         </div>
 
         <img
           src={user?.photoURL}
-          className="w-14 h-14 px-3 rounded-full p-1 border-2 border-blue-700"
+          className="w-14 h-14 rounded-full p-1 border-2 border-blue-700"
           alt=""
           {...register("ownerImage")}
         />

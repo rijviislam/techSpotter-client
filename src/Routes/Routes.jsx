@@ -65,7 +65,9 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/product/${params.id}`),
+          fetch(
+            `https://techspotter-a12-server.vercel.app/product/${params.id}`
+          ),
       },
       {
         path: "/login",
@@ -117,7 +119,9 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/product/${params.id}`),
+          fetch(
+            `https://techspotter-a12-server.vercel.app/product/${params.id}`
+          ),
       },
       {
         path: "/dashboard/payment",

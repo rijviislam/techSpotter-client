@@ -108,13 +108,13 @@ export default function PaymentForm() {
 
   return (
     <div className="flex flex-col">
-      <h2 className="text-3xl">Payment</h2>
+      <h2 className="text-3xl my-10 text-teal-600 font-bold">Payment</h2>
       <form
-        className="lg:w-[500px] w-[350px] mt-5 p-5 mx-5 bg-yellow-50 shadow-md"
+        className="lg:w-[500px] rounded-lg w-[350px] mt-5 p-5 mx-5 bg-yellow-50 shadow-md"
         onSubmit={handleSubmit}
       >
         <CardElement
-          className="border border-red-600 h-[60px] bg-gray-300"
+          className="p-3 rounded-lg h-[60px] bg-gray-300"
           options={{
             style: {
               base: {
