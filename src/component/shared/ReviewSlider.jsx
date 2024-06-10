@@ -29,8 +29,9 @@ export default function ReviewSlider({ id }) {
     refetch();
   }, [id, refetch, review]);
   console.log(productReview);
-  if (isLoading) return <p>Loading....</p>;
-  if (isError) return <p>Error....</p>;
+  if (isLoading)
+    return <span className="loading loading-bars loading-lg"></span>;
+  if (isError) return <span className="loading loading-bars loading-lg"></span>;
   if (productReview)
     return (
       <Swiper
@@ -42,16 +43,20 @@ export default function ReviewSlider({ id }) {
         }}
         navigation={true}
         modules={[Autoplay, Navigation]}
-        className="mySwiper"
+        className="mySwiper w-[360px] md:w-[760px] lg:w-full"
       >
         {productReview.map((rev) => (
           <SwiperSlide
             key={rev._id}
-            className="flex items-center justify-center flex-col"
+            className="flex items-center justify-center flex-col "
           >
-            <img className="w-10 h-10" src={rev.reviewerImage} alt="" />
-            <h2 className="text-">{rev.reviewerName}</h2>
-            <h2>{rev.description}</h2>
+            <img
+              className="w-14 h-14 rounded-full border-2 border-teal-500 p-1"
+              src={rev.reviewerImage}
+              alt=""
+            />
+            <h2 className="text-xl font-medium">{rev.reviewerName}</h2>
+            <p className="text-sm">{rev.description}</p>
             <p>{rev.review}</p>
           </SwiperSlide>
         ))}

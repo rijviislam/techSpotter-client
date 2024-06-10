@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { TbArrowBigUpLineFilled } from "react-icons/tb";
 import { useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAxiosUser from "../../hooks/useAxiosUser";
@@ -60,8 +61,23 @@ export default function ProductDetails() {
     const postReview = await axiosUser.post("/review", reviewItem);
 
     if (postReview.data.insertedId) {
-      console.log("Review Added");
-      alert("Review Added!");
+      Swal.fire({
+        title: "Review Added",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `,
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `,
+        },
+      });
       reset();
       setIsSubmitting(false);
       setReview(0);
@@ -69,13 +85,13 @@ export default function ProductDetails() {
   };
 
   return (
-    <div className="w-full">
-      <div className="hero min-h-screen bg-base-200">
-        <div className="hero-content flex-col lg:flex-row">
-          <img src={productImage} className="min-w-sm rounded-lg shadow-2xl" />
-          <div className="flex flex-col">
+    <div className="hero w-[360px] md:w-[768px] lg:w-full">
+      <div className="flex-col lg:items-start">
+        <div className="flex lg:gap-10 md:flex-col flex-col lg:flex-row">
+          <img src={productImage} className="max-w-1/2 rounded-lg shadow-2xl" />
+          <div>
             <h1 className="text-5xl font-bold">{productName}</h1>
-            <h1 className="text-2xl font-bold">{links}</h1>
+            <p>{links}</p>
             <p className="py-6">{description}</p>
             <div className="flex justify-between">
               <button
@@ -95,40 +111,43 @@ export default function ProductDetails() {
                 Report
               </button>
             </div>
-            {/* REVIEW FORM  */}
-            <div>
-              <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
-                <input
-                  className="my-2 bg-white w-[400px] h-[50px] p-2"
-                  defaultValue={user?.displayName}
-                  readOnly
-                  {...register("reviewerName", { required: true })}
-                />
-                <input
-                  className="my-2 bg-white w-[400px] h-[50px] p-2"
-                  defaultValue={user?.photoURL}
-                  readOnly
-                  {...register("reviewerImage", { required: true })}
-                />
-                <input
-                  className="my-2 bg-white w-[400px] h-[50px] p-2"
-                  type="text"
-                  {...register("description", { required: true })}
-                />
-                <Rating
-                  style={{ maxWidth: 220 }}
-                  value={review}
-                  onChange={setReview}
-                />
-                <input
-                  type="submit"
-                  className="bg-blue-500 text-gray-600 p-3 font-semibold rounded-xl cursor-pointer"
-                />
-              </form>
-            </div>
-            <div className="w-[500px] h-[300px]  flex items-center justify-center">
-              <ReviewSlider id={_id} />
-            </div>
+          </div>
+        </div>
+        {/* REVIEW FORM  */}
+        <div className="flex items-center w-[360px] md:w-[768px] lg:w-full lg:justify-between justify-center md:flex-col flex-col lg:flex-row m-0 p-0">
+          <form
+            className="flex w-[360px] md:w-[500px] lg:w-full flex-col "
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <input
+              className="my-2 bg-white w-full h-[50px] p-2 rounded-lg"
+              defaultValue={user?.displayName}
+              readOnly
+              {...register("reviewerName", { required: true })}
+            />
+            <input
+              className="my-2 bg-white w-full h-[50px] p-2 rounded-lg"
+              defaultValue={user?.photoURL}
+              readOnly
+              {...register("reviewerImage", { required: true })}
+            />
+            <input
+              className="my-2 bg-white w-full h-[50px] p-2 rounded-lg"
+              type="text"
+              {...register("description", { required: true })}
+            />
+            <Rating
+              style={{ maxWidth: 220 }}
+              value={review}
+              onChange={setReview}
+            />
+            <input
+              type="submit"
+              className="bg-blue-500 text-gray-600 p-3 font-semibold rounded-xl cursor-pointer mt-3"
+            />
+          </form>
+          <div className="w-[500px] h-[300px]  flex items-center justify-center">
+            <ReviewSlider id={_id} />
           </div>
         </div>
       </div>

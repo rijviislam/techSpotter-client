@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useLoaderData, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxiosUser from "../../hooks/useAxiosUser";
 
@@ -24,7 +25,6 @@ export default function UpdateProduct() {
     const postedTime = new Date();
     const status = "pending";
     let voteCount = 0;
-    // const tag = tagVal[1];
     if (result.data.success) {
       const productItem = {
         productName: data.productName,
@@ -42,32 +42,46 @@ export default function UpdateProduct() {
       );
       console.log(productResult.data);
       if (productResult.data.modifiedCount > 0) {
-        // /show a aleart
-        console.log("Updated");
-        alert("Product Updated successfully!");
+        Swal.fire({
+          title: "Product Updated successfully!",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+          },
+        });
         navigate("/dashboard/my-product");
       }
     }
   };
   return (
     <div>
-      <h2 className="text-3xl">Update Product {_id}</h2>
+      <h2 className="text-3xl  text-teal-600 font-bold">Update Product</h2>
       <div>
-        <div className="flex items-center justify-center w-full min-h-screen">
+        <div className="flex items-center justify-center w-full min-h-screen md:ml-24">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex bg-cyan-400 p-10 flex-col gap-4"
+            className="flex bg-cyan-400 p-10 flex-col gap-4 rounded-lg"
           >
             <div className="flex w-full gap-4">
               <input
                 placeholder="Product Name"
                 defaultValue={productName}
-                className="bg-gray-100 w-1/2 h-12 px-5"
+                className="bg-gray-100 w-1/2 h-12 px-5 rounded-lg"
                 {...register("productName", { required: true })}
               />
               <input
                 type="file"
-                className="file-input w-1/2 max-w-xs"
+                className="file-input w-1/2 max-w-xs rounded-lg"
                 {...register("image", { required: true })}
               />
             </div>
@@ -76,39 +90,23 @@ export default function UpdateProduct() {
               <input
                 readOnly
                 defaultValue={user?.email}
-                className="bg-gray-100 w-1/2 h-12 px-5"
+                className="bg-gray-100 w-1/2 h-12 px-5 rounded-lg"
                 type="email"
                 {...register("ownerEmail", { required: true })}
               />
               <input
                 placeholder="Links"
                 defaultValue={links}
-                className="bg-gray-100 w-1/2 h-12 px-5"
+                className="bg-gray-100 w-1/2 h-12 px-5 rounded-lg"
                 {...register("links", { required: true })}
               />
             </div>
             <textarea
               placeholder="Description"
               defaultValue={description}
-              className="bg-gray-100 h-[200px] p-3 resize-none"
+              className="bg-gray-100 h-[200px] p-3 resize-none rounded-lg"
               {...register("description", { required: true })}
             />
-            <div className="flex w-full gap-4">
-              {/* <div className="w-1/2 h-20">
-            <ul>
-              {tagVal.map((tag, idx) => (
-                <li key={idx}>{tag}</li>
-              ))}
-            </ul>
-            <input
-              type="text"
-              className="w-1/2 h-20"
-              placeholder="type and enter!"
-              onChange={(e) => setMyTags(e.target.value)}
-              onKeyDown={addTags}
-            />
-          </div> */}
-            </div>
 
             <input
               className="bg-blue-500 p-3 cursor-pointer text-white font-semibold rounded-xl w-[100px]"

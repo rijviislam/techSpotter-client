@@ -90,11 +90,9 @@ export default function TrendingProducts() {
   });
 
   if (isLoading)
-    return (
-      <span className="loading loading-infinity loading-xl text-5xl"></span>
-    );
+    return <span className="loading loading-bars loading-lg"></span>;
   if (isError) {
-    return <div>Error on trending products</div>;
+    return <div>Error....</div>;
   }
 
   return (

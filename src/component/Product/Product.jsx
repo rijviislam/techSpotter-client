@@ -107,8 +107,9 @@ export default function Product() {
       refetch();
     },
   });
-  if (isLoading) return <p>Loading.....</p>;
-  if (isError) return <p>Error loading data...</p>;
+  if (isLoading)
+    return <span className="loading loading-bars loading-lg"></span>;
+  if (isError) return <p>Error...</p>;
 
   return (
     <div>

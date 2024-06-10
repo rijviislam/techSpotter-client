@@ -94,10 +94,14 @@ export default function FeaturedProducts() {
     },
   });
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <span className="loading loading-bars loading-lg"></span>
+      </div>
+    );
   }
   if (isError) {
-    return <div>Error loading products</div>;
+    return <div>Error.....</div>;
   }
   console.log(allSortproducts);
   return (

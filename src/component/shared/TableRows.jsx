@@ -1,18 +1,34 @@
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import useAxiosProduct from "../../hooks/useAxiosProduct";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 export default function TableRows({ product, idx }) {
   const { _id, productName, voteCount, status } = product;
   const [products, isLoading, refetch] = useAxiosProduct();
-  // const axiosUser = useAxiosUser();
   const axiosSecure = useAxiosSecure();
 
   const handleDeleteProduct = async (_id) => {
     const result = await axiosSecure.delete(`/product/${_id}`);
     console.log(result);
     if (result.data.deletedCount) {
-      alert("Delete successfully!");
+      Swal.fire({
+        title: "Product Delete successfully!",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `,
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `,
+        },
+      });
       refetch();
     }
   };

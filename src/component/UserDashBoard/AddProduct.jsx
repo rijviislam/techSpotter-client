@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { TagsInput } from "react-tag-input-component";
+import Swal from "sweetalert2";
 import "../../../style.css";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -53,9 +54,23 @@ export default function AddProduct() {
       const productResult = await axiosSecure.post("/product", productItem);
       console.log(productResult.data);
       if (productResult.data.insertedId) {
-        // /show a aleart
-        console.log("added");
-        alert("Product added successfully!");
+        Swal.fire({
+          title: "Product Added Successfully!",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+          },
+        });
         reset();
         navigate("/dashboard/my-product");
       }
