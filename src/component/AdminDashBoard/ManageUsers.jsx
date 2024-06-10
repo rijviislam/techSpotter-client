@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 export default function ManageUsers() {
@@ -23,10 +24,23 @@ export default function ManageUsers() {
     axiosSecure.patch(`/make-moderator/${id}`).then((res) => {
       console.log(res.data);
       if (res.data.modifiedCount > 0) {
-        // /show a aleart
-        console.log("Moderator");
-        alert("Make Moderator successfully!");
-        // setBtnDisable(true);
+        Swal.fire({
+          title: "Make Moderator successfully!",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+          },
+        });
         refetch();
       }
     });
@@ -36,10 +50,23 @@ export default function ManageUsers() {
     axiosSecure.patch(`/make-admin/${id}`).then((res) => {
       console.log(res.data);
       if (res.data.modifiedCount > 0) {
-        // /show a aleart
-        console.log("Moderator");
-        alert("Make Moderator successfully!");
-        // setBtnDisable(true);
+        Swal.fire({
+          title: "Make Moderator successfully!",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+          },
+        });
         refetch();
       }
     });

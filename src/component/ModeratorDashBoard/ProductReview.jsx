@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 export default function ProductReview() {
@@ -22,9 +23,23 @@ export default function ProductReview() {
     axiosSecure.patch(`/product-review-queue-accept/${id}`).then((res) => {
       console.log(res.data);
       if (res.data.modifiedCount > 0) {
-        // /show a aleart
-        console.log("Accepted");
-        alert("Product Accept successfully!");
+        Swal.fire({
+          title: "Product Accept successfully!",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+          },
+        });
         refetch();
       }
     });
@@ -33,9 +48,23 @@ export default function ProductReview() {
     axiosSecure.patch(`/product-review-queue-feature/${id}`).then((res) => {
       console.log(res.data);
       if (res.data.modifiedCount > 0) {
-        // /show a aleart
-        console.log("Accepted");
-        alert("Product Accept successfully!");
+        Swal.fire({
+          title: "Product Accept successfully!",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+          },
+        });
         refetch();
       }
     });
@@ -44,9 +73,23 @@ export default function ProductReview() {
     axiosSecure.patch(`/product-review-queue-reject/${id}`).then((res) => {
       console.log(res.data);
       if (res.data.modifiedCount > 0) {
-        // /show a aleart
-        console.log("Rejected");
-        alert("Product Reject successfully!");
+        Swal.fire({
+          title: "Product Reject successfully!",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+          },
+        });
         refetch();
       }
     });

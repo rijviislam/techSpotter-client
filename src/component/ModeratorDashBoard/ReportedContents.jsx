@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 export default function ReportedContents() {
@@ -30,7 +31,23 @@ export default function ReportedContents() {
     const result = await axiosSecure.delete(`/product/${id}`);
     console.log(result);
     if (result.data.deletedCount) {
-      alert("Delete successfully!");
+      Swal.fire({
+        title: "Delete successfully!",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `,
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `,
+        },
+      });
       refetch();
     }
   };
