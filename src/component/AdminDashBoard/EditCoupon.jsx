@@ -21,7 +21,7 @@ export default function EditCoupon() {
         couponCodeDescription: data.couponCodeDescription,
       };
       const updatedResult = await axiosSecure.patch(
-        `http://localhost:5000/coupon/${_id}`,
+        `https://techspotter-a12-server.vercel.app/coupon/${_id}`,
         updateItem
       );
       console.log(updatedResult);

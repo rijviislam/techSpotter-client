@@ -34,7 +34,6 @@ export default function ProductDetails() {
   const [localVoteCount, setLocalVoteCount] = useState(initialVoteCount);
   const [localVotedEmail, setLocalVotedEmail] = useState(votedEmail);
   const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   const { register, handleSubmit, reset } = useForm();
   const reviewerImage = user?.photoURL;

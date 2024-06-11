@@ -201,7 +201,7 @@ export const router = createBrowserRouter([
         ),
         loader: async ({ params }) => {
           const response = await fetch(
-            `http://localhost:5000/coupon/${params.id}`
+            `https://techspotter-a12-server.vercel.app/coupon/${params.id}`
           );
           if (!response.ok) {
             throw new Error("Error fetching coupon data");
