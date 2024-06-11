@@ -21,7 +21,6 @@ export default function PaymentForm() {
     axiosSecure
       .post("/create-payment-intent", { price: subscriptionPrice })
       .then((res) => {
-        console.log(res.data.clientSecret);
         setClientSecret(res.data.clientSecret);
       });
   }, [axiosSecure]);
@@ -32,7 +31,6 @@ export default function PaymentForm() {
         const result = await axiosSecure.patch(`/user-status/${user.email}`, {
           status,
         });
-        console.log(result.data);
         return result.data;
       }
     },
@@ -54,8 +52,24 @@ export default function PaymentForm() {
       card,
     });
     if (error) {
-      console.log("Payment Error!", error);
       setError(error.message);
+      Swal.fire({
+        title: { error },
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `,
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `,
+        },
+      });
     } else {
       console.log("Payment Method 0111", paymentMethod);
       setError("");
@@ -72,12 +86,44 @@ export default function PaymentForm() {
         },
       });
     if (confirmError) {
-      console.log("confirm error");
+      Swal.fire({
+        title: "confirm error",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `,
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `,
+        },
+      });
     } else {
       console.log("Payment Intent", paymentIntent);
       if (paymentIntent.status === "succeeded") {
         // TO DO  CHANGE THE USER STATUS IS VERIFY
-        console.log("Transaction Done!");
+        Swal.fire({
+          title: "Transaction Done!",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+          },
+        });
         Swal.fire({
           title: "Payment Successfully Done!",
           showClass: {

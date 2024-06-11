@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import EditCoupon from "../component/AdminDashBoard/EditCoupon";
 import ManageCoupons from "../component/AdminDashBoard/ManageCoupons";
 import ManageUsers from "../component/AdminDashBoard/ManageUsers";
 import Statistics from "../component/AdminDashBoard/Statistics";
@@ -190,6 +191,24 @@ export const router = createBrowserRouter([
             <ManageCoupons />
           </AdminRoute>
         ),
+      },
+      {
+        path: "/dashboard/admin-dashboard/update-coupon/:id",
+        element: (
+          <AdminRoute>
+            <EditCoupon />
+          </AdminRoute>
+        ),
+        loader: async ({ params }) => {
+          const response = await fetch(
+            `http://localhost:5000/coupon/${params.id}`
+          );
+          if (!response.ok) {
+            throw new Error("Error fetching coupon data");
+          }
+          const data = await response.json();
+          return { data };
+        },
       },
     ],
   },

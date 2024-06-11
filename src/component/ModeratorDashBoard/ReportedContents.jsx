@@ -22,14 +22,12 @@ export default function ReportedContents() {
     },
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return <span className="loading loading-bars loading-lg"></span>;
   if (isError) return <p>Error occer</p>;
-
-  console.log(reported);
 
   const handleDeleteProduct = async (id) => {
     const result = await axiosSecure.delete(`/product/${id}`);
-    console.log(result);
     if (result.data.deletedCount) {
       Swal.fire({
         title: "Delete successfully!",

@@ -7,7 +7,6 @@ import useUser from "../../hooks/useUser";
 export default function ModeratorSidebar() {
   const { user, logOutUser } = useAuth();
   const [userInfo] = useUser();
-  console.log(userInfo.role);
   const moderator = userInfo.role === "moderator";
   return (
     <div className="mr-10">

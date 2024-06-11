@@ -28,7 +28,6 @@ export default function UserDashBoardSidebar() {
   }, [normalUser, moderator, admin, navigate]);
   const handleToggle = () => {
     setActive(!isActive);
-    console.log("rijvi");
   };
   return (
     <div className="mr-10 relative">

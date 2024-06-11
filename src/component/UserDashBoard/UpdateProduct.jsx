@@ -15,7 +15,6 @@ export default function UpdateProduct() {
   const image_hosting_key = import.meta.env.VITE_IMAGE_API_KEY;
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
   const onSubmit = async (data) => {
-    console.log(data);
     const imageFile = { image: data.image[0] };
     const result = await axios.post(image_hosting_api, imageFile, {
       headers: {
@@ -40,7 +39,6 @@ export default function UpdateProduct() {
         `/product/${_id}`,
         productItem
       );
-      console.log(productResult.data);
       if (productResult.data.modifiedCount > 0) {
         Swal.fire({
           title: "Product Updated successfully!",

@@ -10,7 +10,6 @@ export default function TableRows({ product, idx }) {
 
   const handleDeleteProduct = async (_id) => {
     const result = await axiosSecure.delete(`/product/${_id}`);
-    console.log(result);
     if (result.data.deletedCount) {
       Swal.fire({
         title: "Product Delete successfully!",
@@ -32,7 +31,8 @@ export default function TableRows({ product, idx }) {
       refetch();
     }
   };
-
+  if (isLoading)
+    return <span className="loading loading-bars loading-lg"></span>;
   return (
     <tr>
       <th>{idx + 1}</th>

@@ -28,7 +28,8 @@ export default function CouponSlider() {
       year: "numeric",
     });
   };
-  if (isLoading) return <p>Loading....</p>;
+  if (isLoading)
+    return <span className="loading loading-bars loading-lg"></span>;
   if (isError) return <p>Error....</p>;
   console.log(coupons);
   return (
@@ -60,7 +61,7 @@ export default function CouponSlider() {
       >
         {coupons.map((coupon) => (
           <SwiperSlide key={coupon._id} className="flex gap-1 lg:gap-5">
-            <div className="ticket">
+            <div className="ticket rounded-lg">
               <div className="datas ">
                 <div className="ribbon">
                   <div className="label text-sm">Code: {coupon.couponCode}</div>

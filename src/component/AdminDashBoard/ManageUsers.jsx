@@ -13,16 +13,14 @@ export default function ManageUsers() {
     queryKey: ["allUsers"],
     queryFn: async () => {
       const result = await axiosSecure.get("/all-users");
-      console.log(result.data);
       return result.data;
     },
   });
-  if (isLoading) return <p>Loading....</p>;
+  if (isLoading)
+    return <span className="loading loading-bars loading-lg"></span>;
   if (isError) return <p>Error....</p>;
   const handleModerator = (id) => {
-    console.log(id);
     axiosSecure.patch(`/make-moderator/${id}`).then((res) => {
-      console.log(res.data);
       if (res.data.modifiedCount > 0) {
         Swal.fire({
           title: "Make Moderator successfully!",
@@ -46,9 +44,7 @@ export default function ManageUsers() {
     });
   };
   const handleAdmin = (id) => {
-    console.log(id);
     axiosSecure.patch(`/make-admin/${id}`).then((res) => {
-      console.log(res.data);
       if (res.data.modifiedCount > 0) {
         Swal.fire({
           title: "Make Moderator successfully!",
@@ -71,7 +67,6 @@ export default function ManageUsers() {
       }
     });
   };
-  console.log(allUsers);
   return (
     <div className="lg:w-full  w-[360px] md:w-[768px]">
       <h2 className="text-3xl my-10 text-teal-600 font-bold">ManageUsers</h2>

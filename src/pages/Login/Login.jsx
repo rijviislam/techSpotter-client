@@ -19,9 +19,8 @@ export default function Login() {
     const { email, password } = data;
     loginUser(email, password)
       .then((res) => {
-        console.log(res.user);
-
         reset();
+        return res.user;
       })
       .catch(() => {
         Swal.fire({

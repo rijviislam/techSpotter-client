@@ -52,7 +52,6 @@ export default function AddProduct() {
         productImage: result.data.data.display_url,
       };
       const productResult = await axiosSecure.post("/product", productItem);
-      console.log(productResult.data);
       if (productResult.data.insertedId) {
         Swal.fire({
           title: "Product Added Successfully!",
@@ -123,21 +122,20 @@ export default function AddProduct() {
             defaultValue={user?.displayName}
             {...register("ownerName", { required: true })}
           />
-
-          <TagsInput
-            value={selected}
-            onChange={setSelected}
-            name="AI"
-            placeHolder="enter tags"
-            classNames="bg-red-5000"
+          <img
+            src={user?.photoURL}
+            className="w-14 h-14 rounded-full p-1 border-2 border-blue-700"
+            alt=""
+            {...register("ownerImage")}
           />
         </div>
 
-        <img
-          src={user?.photoURL}
-          className="w-14 h-14 rounded-full p-1 border-2 border-blue-700"
-          alt=""
-          {...register("ownerImage")}
+        <TagsInput
+          value={selected}
+          onChange={setSelected}
+          name="AI"
+          placeHolder="enter tags"
+          classNames="bg-red-5000 "
         />
 
         <input

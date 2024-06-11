@@ -17,11 +17,9 @@ export default function ProductReview() {
       return result.data;
     },
   });
-  console.log(allProduct);
 
   const handleAccept = (id) => {
     axiosSecure.patch(`/product-review-queue-accept/${id}`).then((res) => {
-      console.log(res.data);
       if (res.data.modifiedCount > 0) {
         Swal.fire({
           title: "Product Accept successfully!",
@@ -46,10 +44,9 @@ export default function ProductReview() {
   };
   const handleFeatured = (id) => {
     axiosSecure.patch(`/product-review-queue-feature/${id}`).then((res) => {
-      console.log(res.data);
       if (res.data.modifiedCount > 0) {
         Swal.fire({
-          title: "Product Accept successfully!",
+          title: "Added Featured Product!",
           showClass: {
             popup: `
               animate__animated
@@ -71,7 +68,6 @@ export default function ProductReview() {
   };
   const handleReject = (id) => {
     axiosSecure.patch(`/product-review-queue-reject/${id}`).then((res) => {
-      console.log(res.data);
       if (res.data.modifiedCount > 0) {
         Swal.fire({
           title: "Product Reject successfully!",
@@ -94,8 +90,19 @@ export default function ProductReview() {
       }
     });
   };
-  if (isLoading) return <p>Loading.....</p>;
+  const sortedProducts = allProduct.sort((a, b) => {
+    if (a.status === "pending" && b.status !== "pending") {
+      return -1;
+    } else if (a.status !== "pending" && b.status === "pending") {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+  if (isLoading)
+    return <span className="loading loading-bars loading-lg"></span>;
   if (isError) return <p>Error.....</p>;
+
   return (
     <div className="lg:w-full w-[360px] md:w-[768px]">
       <h2 className="text-3xl my-10 text-teal-600 font-bold">ProductReview</h2>
@@ -114,7 +121,7 @@ export default function ProductReview() {
               </tr>
             </thead>
             <tbody>
-              {allProduct.map((product, idx) => (
+              {sortedProducts.map((product, idx) => (
                 <tr key={product.t_id}>
                   <th>{idx + 1}</th>
                   <td>{product.productName}</td>

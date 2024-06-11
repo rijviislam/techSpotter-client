@@ -88,7 +88,7 @@ export default function Product() {
     try {
       await mutateAsync({ id, voteCount });
     } catch (error) {
-      console.log(error);
+      return error.message;
     }
   };
 

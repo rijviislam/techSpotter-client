@@ -1,91 +1,95 @@
-export default function EditCoupon() {
-  //   const { register, handleSubmit, reset, refatch } = useForm();
-  //   const axiosSecure = useAxiosSecure();
+import { useForm } from "react-hook-form";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
-  //   const onSubmit = async (data) => {
-  //     const cuponItem = {
-  //       couponCode: data.couponCode,
-  //       discountAmount: data.discountAmount,
-  //       couponCodeDescription: data.couponCodeDescription,
-  //       expiryDate: data.expiryDate,
-  //     };
-  //     console.log(cuponItem);
-  //     const coupons = await axiosSecure.post("/coupons", cuponItem);
-  //     console.log(coupons.data);
-  //     if (coupons.data.insertedId) {
-  //       Swal.fire({
-  //         title: "Coupon Added!",
-  //         showClass: {
-  //           popup: `
-  //             animate__animated
-  //             animate__fadeInUp
-  //             animate__faster
-  //           `,
-  //         },
-  //         hideClass: {
-  //           popup: `
-  //             animate__animated
-  //             animate__fadeOutDown
-  //             animate__faster
-  //           `,
-  //         },
-  //       });
-  //       reset();
-  //       refatch();
-  //       // navigate("/dashboard/my-product");
-  //     }
-  //   };
-  //   // GET COUPONS //
-  //   const {
-  //     data: coupons = [],
-  //     isLoading,
-  //     isError,
-  //     refetch,
-  //   } = useQuery({
-  //     queryKey: ["coupons"],
-  //     queryFn: async () => {
-  //       const result = await axiosSecure.get("/coupons");
-  //       console.log(result.data);
-  //       return result.data;
-  //     },
-  //   });
-  //   console.log(coupons);
+export default function EditCoupon() {
+  const { data } = useLoaderData();
+  const navigate = useNavigate();
+  const { _id, couponCode, couponCodeDescription, discountAmount, expiryDate } =
+    data;
+  console.log(data);
+  const axiosSecure = useAxiosSecure();
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = async (data) => {
+    try {
+      const updateItem = {
+        couponCode: data.couponCode,
+        discountAmount: data.discountAmount,
+        expiryDate: data.expiryDate,
+        couponCodeDescription: data.couponCodeDescription,
+      };
+      const updatedResult = await axiosSecure.patch(
+        `http://localhost:5000/coupon/${_id}`,
+        updateItem
+      );
+      console.log(updatedResult);
+      if (updatedResult.data.modifiedCount > 0) {
+        Swal.fire({
+          title: "Coupon Updated successfully!",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+          },
+        });
+        navigate("/dashboard/admin-dashboard/manage-coupons");
+      }
+    } catch (error) {
+      console.error("Error updating coupon:", error);
+    }
+  };
+
   return (
-    // <div>
-    //   <form
-    //     className=" mt-8 flex flex-col gap-3 lg:w-[500px] w-[360px]"
-    //     onSubmit={handleSubmit(onSubmit)}
-    //   >
-    //     <div className="flex lg:flex-row md:flex-row flex-col w-full justify-between gap-4">
-    //       <input
-    //         className="bg-white lg:w-1/2  text-black h-12 px-3 rounded-lg"
-    //         type="number"
-    //         placeholder="Coupon Code"
-    //         {...register("couponCode", { required: true })}
-    //       />
-    //       <input
-    //         className="bg-white w-1/2 text-black h-12 px-3 rounded-lg"
-    //         type="number"
-    //         placeholder="Discount Ammount"
-    //         {...register("discountAmount", { required: true })}
-    //       />
-    //     </div>
-    //     <textarea
-    //       className="bg-white text-black h-28 px-3 resize-none rounded-lg"
-    //       placeholder="Coupon Code Discripton"
-    //       {...register("couponCodeDescription", { required: true })}
-    //     />
-    //     <input
-    //       className="mt-1 block w-full px-3 py-2 bg-teal-500 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-white"
-    //       type="date"
-    //       {...register("expiryDate", { required: true })}
-    //     />
-    //     <input
-    //       className="bg-blue-400 text-gray-600 p-3 rounded-lg"
-    //       type="submit"
-    //     />
-    //   </form>
-    // </div>
-    <h2 className="text-3xl">Hiiiiiiii</h2>
+    <div>
+      <h2 className="text-3xl my-10 text-teal-600 font-bold">Edit Coupon</h2>
+      <div>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex bg-cyan-400 p-10 flex-col gap-4 rounded-lg w-[350px] md:w-[768px] lg:w-full"
+        >
+          <div className="flex flex-col w-full gap-4">
+            <input
+              defaultValue={couponCode}
+              className="bg-gray-100  h-12 px-5 rounded-lg"
+              {...register("couponCode", { required: true })}
+            />
+            <input
+              type="number"
+              defaultValue={discountAmount}
+              className="bg-gray-100  h-12 px-5 rounded-lg"
+              {...register("discountAmount", { required: true })}
+            />
+            <input
+              type="date"
+              defaultValue={expiryDate}
+              className="bg-gray-100  h-12 px-5 rounded-lg"
+              {...register("expiryDate", { required: true })}
+            />
+          </div>
+
+          <textarea
+            defaultValue={couponCodeDescription}
+            className="bg-gray-100 h-[200px] p-3 resize-none rounded-lg"
+            {...register("couponCodeDescription", { required: true })}
+          />
+
+          <input
+            className="bg-blue-500 p-3 cursor-pointer text-white font-semibold rounded-xl w-[100px]"
+            type="submit"
+          />
+        </form>
+      </div>
+    </div>
   );
 }

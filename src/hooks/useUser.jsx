@@ -14,7 +14,6 @@ export default function useUser() {
     enabled: !loader,
     queryFn: async () => {
       const res = await axiosSecure.get(`/users/user/${user.email}`);
-      console.log(res.data);
       return res.data;
     },
   });

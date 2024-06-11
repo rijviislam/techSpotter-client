@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
@@ -14,9 +15,7 @@ export default function ManageCoupons() {
       couponCodeDescription: data.couponCodeDescription,
       expiryDate: data.expiryDate,
     };
-    console.log(cuponItem);
     const coupons = await axiosSecure.post("/coupons", cuponItem);
-    console.log(coupons.data);
     if (coupons.data.insertedId) {
       Swal.fire({
         title: "Coupon Added!",
@@ -50,14 +49,12 @@ export default function ManageCoupons() {
     queryKey: ["coupons"],
     queryFn: async () => {
       const result = await axiosSecure.get("/coupons");
-      console.log(result.data);
       return result.data;
     },
   });
   // DELETE COUPON
   const handleDeleteCoupon = async (id) => {
     const result = await axiosSecure.delete(`/coupons/${id}`);
-    console.log(result);
     if (result.data.deletedCount) {
       Swal.fire({
         title: "Coupon Deleted!",
@@ -133,7 +130,7 @@ export default function ManageCoupons() {
           {coupons.map((coupon) => (
             <div
               key={coupon._id}
-              className="ticket w-[360px] md:w-[350px] px-3"
+              className="ticket w-[360px] md:w-[350px] px-3 rounded-lg"
             >
               <div className="datas ">
                 <div className="ribbon">
@@ -151,9 +148,13 @@ export default function ManageCoupons() {
                 {expiryDate(coupon.expiryDate)}
               </p>
               <div className="flex items-center justify-around">
-                <button className="btn btn-sm bg-blue-400 text-white">
-                  Edit
-                </button>
+                <Link
+                  to={`/dashboard/admin-dashboard/update-coupon/${coupon._id}`}
+                >
+                  <button className="btn btn-sm bg-blue-400 text-white">
+                    Edit
+                  </button>
+                </Link>
                 <button
                   onClick={() => handleDeleteCoupon(coupon._id)}
                   className="btn btn-sm bg-red-400 text-white"

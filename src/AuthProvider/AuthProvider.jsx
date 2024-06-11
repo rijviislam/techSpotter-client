@@ -44,7 +44,6 @@ export default function AuthProvider({ children }) {
 
   //   SAVE USER ON DB //
   const saveUser = async (user) => {
-    console.log(user.displayName);
     const name = user?.displayName ? user.displayName : "";
     const currentUser = {
       name,

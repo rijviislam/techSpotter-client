@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import ReportBtn from "../../assets/sign.png";
 import Vote from "../../assets/up-arrow.png";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -33,6 +34,7 @@ export default function ProductDetails() {
   const [localVoteCount, setLocalVoteCount] = useState(initialVoteCount);
   const [localVotedEmail, setLocalVotedEmail] = useState(votedEmail);
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const { register, handleSubmit, reset } = useForm();
   const reviewerImage = user?.photoURL;
@@ -119,7 +121,6 @@ export default function ProductDetails() {
     const voteCount = parseInt(currentVoteCount, 10) + 1;
     const updatedVotedEmail = [...localVotedEmail, email];
 
-    // Optimistically update the UI
     setLocalVoteCount(voteCount);
     setLocalVotedEmail(updatedVotedEmail);
 
@@ -135,10 +136,8 @@ export default function ProductDetails() {
         },
       });
     } catch (error) {
-      // Revert optimistic update in case of error
       setLocalVoteCount(currentVoteCount);
       setLocalVotedEmail(votedEmail);
-      console.log(error);
     }
   };
 
@@ -177,7 +176,7 @@ export default function ProductDetails() {
         <div className="flex justify-between  lg:w-[800px] md:w-[500px] w-[360px]">
           <button
             onClick={() => handleProductVote(_id, localVoteCount, user.email)}
-            className="btn btn-primary"
+            className=" rounded-lg w-16 flex items-center cursor-pointer justify-between p-1 px-2 bg-teal-900"
           >
             <img className="w-5 h-5" src={Vote} alt="Vote" />
             {localVoteCount}
@@ -185,9 +184,9 @@ export default function ProductDetails() {
           <button
             onClick={() => handleReport(_id)}
             disabled={disable}
-            className="btn btn-primary"
+            className=" rounded-lg w-16 flex items-center justify-center cursor-pointer p-1 px-2 bg-teal-400"
           >
-            Report
+            <img src={ReportBtn} className="w-5 h-5" alt="report" />
           </button>
         </div>
         <div className="lg:w-[500px] md:w-[500px] w-[350px]  flex items-center justify-center">

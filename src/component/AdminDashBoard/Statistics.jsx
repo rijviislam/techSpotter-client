@@ -29,18 +29,16 @@ export default function Statistics() {
       return result.data;
     },
   });
-  console.log(allUsers.length, allProduct.length, allReview.length);
   const chartData = [
     { name: "All Users", value: allUsers.length },
     { name: "All Product", value: allProduct.length },
     { name: "All Review", value: allReview.length },
   ];
-  isLoading && <p>Loading...</p>;
-  isError && <p>Error loading data.</p>;
+  isLoading && <span className="loading loading-bars loading-lg"></span>;
+  isError && <p>Error </p>;
   return (
     <div className="w-[360px] lg:w-full md:w-[768px]">
       <h2 className="text-3xl mt-10 text-teal-600 font-bold">Statistics</h2>
-
       {!isLoading && !isError && (
         <PieChart data={chartData} width={800} height={800} />
       )}

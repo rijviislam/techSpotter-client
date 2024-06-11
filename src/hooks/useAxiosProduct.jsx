@@ -14,7 +14,6 @@ export default function useAxiosProduct() {
     queryKey: ["products"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/my-product/${user.email}`);
-      console.log(res.data);
       return res.data;
     },
   });

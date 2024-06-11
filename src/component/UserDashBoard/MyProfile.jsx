@@ -15,15 +15,14 @@ export default function MyProfile() {
     queryKey: ["userInfo"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/users/user/${user.email}`);
-      console.log(res.data);
       return res.data;
     },
   });
   const handleSubscribe = () => {
-    // reset();
-    console.log("Okkk");
+    console.log("SubScribe");
   };
-  console.log(userInfo);
+  if (isLoading)
+    return <span className="loading loading-bars loading-lg"></span>;
   return (
     <div className="w-[360px] md:w-[768px] lg:w-full h-screen flex flex-col items-center justify-center">
       <div className=" h-20 w-20  flex ">
@@ -38,6 +37,7 @@ export default function MyProfile() {
       </div>
       <h2 className="text-3xl font-semibold my-3">{user?.displayName}</h2>
       <h4 className="text-2xl font-semibold my-2">{user?.email}</h4>
+      {userInfo.status === "verified" && <h2>{userInfo.status}</h2>}
       {userInfo.status !== "verified" && (
         <div className="join mt-3">
           <input
