@@ -204,7 +204,7 @@ export const router = createBrowserRouter([
             `https://techspotter-a12-server.vercel.app/coupon/${params.id}`
           );
           if (!response.ok) {
-            throw new Error("Error fetching coupon data");
+            throw new Error("Error");
           }
           const data = await response.json();
           return { data };

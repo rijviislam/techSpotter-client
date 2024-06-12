@@ -9,7 +9,7 @@ const axiosSecure = axios.create({
 export default function useAxiosSecure() {
   const navigate = useNavigate();
   const { logOut } = useAuth();
-  // REQUEST INTERCEPTOR  TO ADD AUTHORIZATION HEADER FOR EVERY SECURE CALL TO THE API//
+
   axiosSecure.interceptors.request.use(
     function (config) {
       const token = localStorage.getItem("Token");
