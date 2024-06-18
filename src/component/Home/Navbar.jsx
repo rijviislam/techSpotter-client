@@ -43,7 +43,7 @@ export default function Navbar() {
             {navbar}
           </ul>
         </div>
-        <Link to="/" className="btn btn-ghost text-xl">
+        <Link to="/" className="text-xl">
           TechSpotter
         </Link>
       </div>

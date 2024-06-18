@@ -7,6 +7,7 @@ import "../../../style.css";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAxiosUser from "../../hooks/useAxiosUser";
+import "../../tag.css";
 
 export default function AddProduct() {
   const { user } = useAuth();
@@ -80,17 +81,17 @@ export default function AddProduct() {
     <div className="flex items-center justify-center lg:w-full min-h-screen w-[360px] md:w-[768px]">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex bg-teal-600 p-10 flex-col gap-4"
+        className="flex  p-10 flex-col gap-4 border-2bg-white/30 shadow-2xl rounded-lg border-teal-500 backdrop-brightness-200"
       >
         <div className="flex w-full gap-4">
           <input
             placeholder="Product Name"
-            className="bg-gray-100 w-1/2 h-12 px-5 rounded-lg"
+            className="bg-transparent border-b-2 border-r-2 border-l-2 border-teal-500 w-1/2 h-12 px-5 rounded-lg outline-none"
             {...register("productName", { required: true })}
           />
           <input
             type="file"
-            className="file-input w-1/2 max-w-xs"
+            className="file-input w-1/2 max-w-xs bg-transparent border-b-2 border-r-2 border-l-2 border-teal-500"
             {...register("image", { required: true })}
           />
         </div>
@@ -99,47 +100,49 @@ export default function AddProduct() {
           <input
             readOnly
             defaultValue={user?.email}
-            className="bg-gray-100 w-1/2 h-12 px-5 rounded-lg"
+            className="bg-transparent border-b-2 border-r-2 border-l-2 border-teal-500 w-1/2 h-12 px-5 rounded-lg"
             type="email"
             {...register("ownerEmail", { required: true })}
           />
           <input
             placeholder="Links"
-            className="bg-gray-100 w-1/2 h-12 px-5 rounded-lg"
+            className="bg-transparent border-b-2 border-r-2 border-l-2 border-teal-500 w-1/2 h-12 px-5 rounded-lg"
             {...register("links", { required: true })}
           />
         </div>
         <textarea
           placeholder="Description"
-          className="bg-gray-100 h-[200px] p-3 resize-none rounded-lg"
+          className="bg-transparent border-b-2 border-r-2 border-l-2 border-teal-500 h-[200px] p-3 resize-none rounded-lg"
           {...register("description", { required: true })}
         />
-        <div className="flex w-full gap-4">
-          <input
-            className="bg-gray-100 w-1/2 h-12 px-5 rounded-lg"
-            type="text"
-            readOnly
-            defaultValue={user?.displayName}
-            {...register("ownerName", { required: true })}
-          />
-          <img
-            src={user?.photoURL}
-            className="w-14 h-14 rounded-full p-1 border-2 border-blue-700"
-            alt=""
-            {...register("ownerImage")}
+        <div className="flex gap-0 justify-between lg:flex-row md:flex-row flex-col">
+          <div className="flex gap-3">
+            <input
+              className="bg-transparent border-b-2 border-r-2 border-l-2 border-teal-500 h-12  rounded-lg px-3"
+              type="text"
+              readOnly
+              defaultValue={user?.displayName}
+              {...register("ownerName", { required: true })}
+            />
+            <img
+              src={user?.photoURL}
+              className="w-14 h-14 rounded-full p-1 border-2 border-teal-700"
+              alt=""
+              {...register("ownerImage")}
+            />
+          </div>
+
+          <TagsInput
+            value={selected}
+            onChange={setSelected}
+            name="AI"
+            placeHolder="enter tags"
+            classNames="bg-transparent border-b-2 border-r-2 border-l-2 border-teal-500"
           />
         </div>
 
-        <TagsInput
-          value={selected}
-          onChange={setSelected}
-          name="AI"
-          placeHolder="enter tags"
-          classNames="bg-red-5000 "
-        />
-
         <input
-          className="bg-blue-500 p-3 cursor-pointer text-white font-semibold rounded-xl w-[100px]"
+          className="bg-teal-500 p-3 cursor-pointer text-white font-semibold rounded-xl w-[100px]"
           type="submit"
         />
       </form>

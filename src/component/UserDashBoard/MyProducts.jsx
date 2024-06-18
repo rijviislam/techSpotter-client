@@ -3,8 +3,8 @@ import TableRows from "../shared/TableRows";
 
 export default function MyProducts() {
   const [products, isLoading] = useAxiosProduct();
-  if (isLoading)
-    return <span className="loading loading-bars loading-lg"></span>;
+  if (isLoading) return;
+  <span className="loading loading-bars loading-lg "></span>;
   return (
     <div>
       <h2 className="text-3xl my-10 text-teal-600 font-bold">MyProducts</h2>

@@ -121,7 +121,7 @@ export default function ManageCoupons() {
               {...register("expiryDate", { required: true })}
             />
             <input
-              className="bg-blue-400 text-gray-600 p-3 rounded-lg"
+              className="bg-blue-400 text-gray-600 p-3 rounded-lg cursor-pointer"
               type="submit"
             />
           </form>
@@ -137,8 +137,7 @@ export default function ManageCoupons() {
                   <div className="label text-sm">Code: {coupon.couponCode}</div>
                 </div>
                 <span className="text-black font-semibold text-xl mt-10">
-                  Discount Amount:
-                  {coupon.discountAmount}
+                  Discount Amount: ${coupon.discountAmount}
                 </span>
                 <p className="text-xl text-black mt-5">
                   {coupon.couponCodeDescription}

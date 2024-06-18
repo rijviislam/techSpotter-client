@@ -161,18 +161,20 @@ export default function ProductDetails() {
   });
 
   return (
-    <div className="w-full min-h-screen flex items-center flex-col overflow-x-hidden">
-      <div className="flex items-center flex-col justify-center my-5 w-[1200px]">
-        <div className="lg:w-[800px] md:w-[600px] w-[350px] h-[200px] lg:h-[450px]">
+    <div className="w-full min-h-screen flex items-center flex-col overflow-x-hidden ">
+      <div className="flex items-center flex-col justify-center my-5 w-[1200px] ">
+        <div className="lg:w-full md:w-[600px] w-[350px] h-[200px] lg:h-[450px]">
           <img
             src={productImage}
             className="rounded-lg w-full h-full object-cover"
           />
         </div>
-        <h2 className="text-3xl font-semibold">{productName}</h2>
-        <p className="lg:w-[600px] md:w-[500px] w-[350px]">{description}</p>
-        <Link className="underline">{links}</Link>
-        <div className="flex justify-between  lg:w-[800px] md:w-[500px] w-[360px]">
+        <h2 className="text-3xl font-semibold text-start w-full my-3">
+          {productName}
+        </h2>
+        <p className="lg:w-full md:w-[500px] w-[350px]">{description}</p>
+        <Link className="underline text-start w-full">{links}</Link>
+        <div className="flex justify-between  lg:w-full my-4 md:w-[500px] w-[360px]">
           <button
             onClick={() => handleProductVote(_id, localVoteCount, user.email)}
             className=" rounded-lg w-16 flex items-center cursor-pointer justify-between p-1 px-2 bg-teal-900"
@@ -197,19 +199,20 @@ export default function ProductDetails() {
             onSubmit={handleSubmit(onSubmit)}
           >
             <input
-              className="my-2 bg-white w-full h-[50px] p-2 rounded-lg"
+              className="my-2 bg-transparent border-b border-teal-500 w-full h-[50px] p-2 rounded-lg"
               defaultValue={user?.displayName}
               readOnly
               {...register("reviewerName", { required: true })}
             />
             <input
-              className="my-2 bg-white w-full h-[50px] p-2 rounded-lg"
+              className="my-2 bg-transparent border-b border-teal-500 w-full h-[50px] p-2 rounded-lg"
               defaultValue={user?.photoURL}
               readOnly
               {...register("reviewerImage", { required: true })}
             />
             <input
-              className="my-2 bg-white w-full h-[50px] p-2 rounded-lg"
+              className="my-2 bg-transparent border-b outline-none border-teal-500 w-full h-[50px] p-2 rounded-lg"
+              placeholder="description"
               type="text"
               {...register("description", { required: true })}
             />
@@ -220,7 +223,7 @@ export default function ProductDetails() {
             />
             <input
               type="submit"
-              className="bg-blue-500 text-gray-600 p-3 font-semibold rounded-xl cursor-pointer mt-3"
+              className="bg-teal-500 text-white p-3 font-semibold rounded-xl cursor-pointer mt-3"
             />
           </form>
         </div>

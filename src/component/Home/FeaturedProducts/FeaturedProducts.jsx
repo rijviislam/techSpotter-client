@@ -113,7 +113,7 @@ export default function FeaturedProducts() {
         {allSortproducts.map((product) => (
           <div
             key={product._id}
-            className="card card-compact bg-base-100 shadow-xl border border-gray-600"
+            className="card card-compact bg-base-100 shadow-xl border-y-2 border-teal-600"
           >
             <figure className="w-full h-[250px] ">
               <img

@@ -112,12 +112,12 @@ export default function Product() {
   if (isError) return <p>Error...</p>;
 
   return (
-    <div>
+    <div className=" my-5">
       <h2 className="text-3xl text-teal-600 font-bold mb-4 lg:ml-8 ml-2">
         Product
       </h2>
       <div className="flex mx-4 items-center justify-center my-5">
-        <label className="input w-[400px] input-bordered flex items-center gap-2">
+        <label className="input w-[400px] border-teal-500 flex items-center gap-2">
           <input
             type="text"
             className="grow"
@@ -131,7 +131,7 @@ export default function Product() {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
               fill="currentColor"
-              className="w-4 h-4 opacity-70"
+              className="w-4 h-4 opacity-70 text-teal-500"
             >
               <path
                 fillRule="evenodd"
@@ -142,11 +142,11 @@ export default function Product() {
           </button>
         </label>
       </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 lg:gap-5 md:gap-3 gap-2 mt-10 place-items-center">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 lg:gap-5 md:gap-3 gap-2 mt-10 place-items-center my-5">
         {acceptedProduct.result.map((product) => (
           <div
             key={product._id}
-            className="card card-compact lg:w-[350px] bg-base-100 shadow-xl border border-gray-600 h-[400px]"
+            className="card card-compact lg:w-[350px] bg-base-100 shadow-xl border-y-2 border-teal-600 h-[400px]"
           >
             <figure className="w-full h-[250px] ">
               <img

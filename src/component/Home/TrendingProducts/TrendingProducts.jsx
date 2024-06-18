@@ -104,7 +104,7 @@ export default function TrendingProducts() {
         {sortedVote.slice(0, 6).map((product) => (
           <div
             key={product._id}
-            className="card card-compact lg:w-[350px] bg-base-100 shadow-xl border border-gray-600 h-[400px]"
+            className="card card-compact lg:w-[350px] bg-base-100 shadow-xl border-y-2 border-teal-600 h-[400px]"
           >
             <figure className="w-full h-[250px] ">
               <img

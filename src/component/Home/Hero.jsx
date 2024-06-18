@@ -1,4 +1,4 @@
-import HeroImage from "../../assets/undraw_virtual_reality_re_yg8i.svg";
+import HeroImage from "../../assets/istockphoto-1795167728-170667a.webp";
 export default function Hero() {
   return (
     <div
@@ -10,7 +10,7 @@ export default function Hero() {
       <div className="hero-overlay bg-opacity-60"></div>
       <div className="hero-content text-center text-neutral-content">
         <div className="max-w-[700px]">
-          <h1 className="mb-5 lg:text-5xl md:text-4xl font-bold text-2xl -z-50">
+          <h1 className="mb-5 lg:text-5xl text-teal-500 md:text-4xl font-bold text-2xl -z-50 ">
             Explore The World Of <br />
             TECHNOLOGY
           </h1>
