@@ -17,7 +17,7 @@ export default function Navbar() {
     </>
   );
   return (
-    <div className="navbar bg-[#224955] z-50 px-10">
+    <div className="navbar bg-[#224955] z-50 px-10 py-3 fixed">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -43,7 +43,7 @@ export default function Navbar() {
             {navbar}
           </ul>
         </div>
-        <Link to="/" className="text-xl text-white">
+        <Link to="/" className="text-xl text-white font-semibold ">
           TechSpotter
         </Link>
       </div>
