@@ -17,38 +17,16 @@ export default function Navbar() {
     </>
   );
   return (
-    <div className="navbar bg-[#224955] z-50 px-10 py-3 fixed">
+    <div className="navbar bg-base-100 z-50 flex justify-between mx-10 items-center py-5 ">
       <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 w-52"
-          >
-            {navbar}
-          </ul>
-        </div>
-        <Link to="/" className="text-xl text-white font-semibold ">
+        <Link to="/" className="text-2xl font-bold">
           TechSpotter
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 text-white">{navbar}</ul>
+        <ul className="menu menu-horizontal px-1 flex gap-10 text-lg font-medium">
+          {navbar}
+        </ul>
       </div>
       <div className="navbar-end">
         {user ? (
@@ -112,18 +90,42 @@ export default function Navbar() {
         ) : (
           <div className="flex gap-1 lg:gap-3">
             <Link to="/login">
-              <button className="btn btn-sm text-white  btn-primary bg-teal-600 border-none">
+              <button className="btn btn-sm text-white  btn-primary bg-teal-600 border-none py-2 px-4 rounded-lg">
                 Login
               </button>
             </Link>
             <Link to="/register">
-              <button className="btn btn-sm text-white bg-teal-600 btn-primary border-none">
+              <button className="btn btn-sm text-white bg-teal-600 btn-primary border-none py-2 px-4 rounded-lg">
                 Register
               </button>
             </Link>
           </div>
         )}
       </div>
+      {/* <div className="dropdown border-2 border-red-500 block lg:hidden">
+        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h8m-8 6h16"
+            />
+          </svg>
+        </div>
+        <ul
+          tabIndex={0}
+          className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+        >
+          {navbar}
+        </ul>
+      </div> */}
     </div>
   );
 }
